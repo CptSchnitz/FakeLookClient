@@ -1,9 +1,9 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { PostsLayoutComponent } from './posts-layout/posts-layout.component';
-import { TimeFeedComponent } from './time-feed/time-feed.component';
-import { MapFeedComponent } from './map-feed/map-feed.component';
-import { PostDetailsComponent } from './post-details/post-details.component';
+import { PostsLayoutComponent } from './components/posts-layout/posts-layout.component';
+import { TimeFeedComponent } from './components/time-feed/time-feed.component';
+import { MapFeedComponent } from './components/map-feed/map-feed.component';
+import { PostDetailsComponent } from './components/post-details/post-details.component';
 
 const routes: Routes = [
   {
