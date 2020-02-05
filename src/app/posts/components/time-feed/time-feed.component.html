@@ -1,1 +1,5 @@
-<p>time-feed works!</p>
+<ul class="list-group" *ngFor="let post of posts">
+  <li class="list-group-item">
+    <app-time-feed-item [post]="post"></app-time-feed-item>
+  </li>
+</ul>

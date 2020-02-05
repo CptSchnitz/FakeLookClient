@@ -4,6 +4,7 @@ import { PostsLayoutComponent } from './components/posts-layout/posts-layout.com
 import { TimeFeedComponent } from './components/time-feed/time-feed.component';
 import { MapFeedComponent } from './components/map-feed/map-feed.component';
 import { PostDetailsComponent } from './components/post-details/post-details.component';
+import { PostFormComponent } from './components/post-form/post-form.component';
 
 const routes: Routes = [
   {
@@ -13,6 +14,7 @@ const routes: Routes = [
       { path: 'timefeed', component: TimeFeedComponent },
       { path: 'mapfeed', component: MapFeedComponent },
       { path: 'details/:id', component: PostDetailsComponent },
+      { path: 'newpost', component: PostFormComponent },
       { path: '', redirectTo: 'mapfeed', pathMatch: 'full' }
     ]
   }
@@ -22,4 +24,4 @@ const routes: Routes = [
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule]
 })
-export class PostsRoutingModule {}
+export class PostsRoutingModule { }

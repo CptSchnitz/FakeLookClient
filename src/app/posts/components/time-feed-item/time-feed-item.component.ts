@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
+import { PostSimple } from 'src/app/posts/model/postSimple.model';
 
 @Component({
   selector: 'app-time-feed-item',
@@ -6,10 +7,10 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./time-feed-item.component.css']
 })
 export class TimeFeedItemComponent implements OnInit {
+  @Input()
+  post: PostSimple;
 
-  constructor() { }
+  constructor() {}
 
-  ngOnInit() {
-  }
-
+  ngOnInit() {}
 }

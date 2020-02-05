@@ -9,6 +9,10 @@ import { PostDetailsComponent } from './components/post-details/post-details.com
 import { PostFormComponent } from './components/post-form/post-form.component';
 import { TimeFeedItemComponent } from './components/time-feed-item/time-feed-item.component';
 import { FilterFormComponent } from './components/filter-form/filter-form.component';
+import { PostsService } from './services/posts-service/posts.service';
+import { ReactiveFormsModule } from '@angular/forms';
+import { NgbTypeaheadModule } from '@ng-bootstrap/ng-bootstrap';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 
 @NgModule({
   declarations: [
@@ -20,6 +24,7 @@ import { FilterFormComponent } from './components/filter-form/filter-form.compon
     TimeFeedItemComponent,
     FilterFormComponent
   ],
-  imports: [CommonModule, PostsRoutingModule]
+  imports: [CommonModule, PostsRoutingModule, ReactiveFormsModule, NgbTypeaheadModule, FontAwesomeModule],
+  providers: [PostsService]
 })
 export class PostsModule {}
