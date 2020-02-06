@@ -52,6 +52,7 @@ export class MapFeedComponent implements AfterViewInit, OnDestroy {
 
   ngAfterViewInit() {
     this.postsService.getPosts().pipe(takeUntil(this.unsubscribe$)).subscribe((posts) => {
+      console.log(posts)
       this.posts = posts;
       this.geoService.getLocation().then((userLocation) => {
         this.mapOptions.center = userLocation;
@@ -73,6 +74,11 @@ export class MapFeedComponent implements AfterViewInit, OnDestroy {
         this.markers.push(new google.maps.Marker({
           position: post.location,
           map: this.map,
+          icon: {
+            url: 'http://localhost:4000/images/' + post.image,
+            scaledSize: new google.maps.Size(20, 100),
+            
+          },
           animation: google.maps.Animation.DROP,
           title: post.postId.toString(),
         }));

@@ -7,6 +7,7 @@ import { Subject, Observable } from 'rxjs';
 import { takeUntil, debounceTime, distinctUntilChanged, filter, map } from 'rxjs/operators';
 import { NgbTypeaheadSelectItemEvent } from '@ng-bootstrap/ng-bootstrap';
 import { faTimes } from '@fortawesome/free-solid-svg-icons'
+import { PostsService } from '../../services/posts-service/posts.service';
 
 @Component({
   selector: 'app-post-form',
@@ -21,7 +22,7 @@ export class PostFormComponent implements OnInit, OnDestroy {
 
   faTimes = faTimes;
 
-  constructor(private geoService: GeolocationService, private userService: UsersService) { }
+  constructor(private geoService: GeolocationService, private userService: UsersService, private postsService: PostsService) { }
 
   postForm = new FormGroup({
     text: new FormControl('', Validators.maxLength(500)),
@@ -94,7 +95,9 @@ export class PostFormComponent implements OnInit, OnDestroy {
   }
 
   onSubmit() {
-    console.log(this.postForm.value);
+    this.postsService.createPost(this.postForm.value).subscribe(() => {
+      console.log('we did it!');
+    });
   }
 
   ngOnDestroy(): void {

@@ -10,17 +10,17 @@ import { NewPost } from '../../model/NewPost.model';
 })
 export class PostsService {
   private apiUrl = environment.backendUrl + '/api/posts';
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) { }
 
   getPosts(): Observable<PostSimple[]> {
     return this.http.get<PostSimple[]>(this.apiUrl);
   }
 
   createPost(post: NewPost): Observable<object> {
+    const { image, ...data } = { ...post };
     const formData = new FormData();
-    for (const key of Object.keys(post)) {
-      formData.append(key, post[key]);
-    }
+    formData.append('image', image);
+    formData.append('data', JSON.stringify(data));
     return this.http.post(this.apiUrl, formData);
   }
 }
