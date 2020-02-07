@@ -1,0 +1,34 @@
+<div class="form-group">
+  <label for="tagUser">Tag User</label>
+  <input
+    id="tagUser"
+    type="text"
+    class="form-control"
+    [ngbTypeahead]="searchUsers"
+    [inputFormatter]="emptyFormatter"
+    [resultFormatter]="userFormatter"
+    [editable]="false"
+    [disabled]="disabled"
+    (selectItem)="addUserTag($event)"
+  />
+</div>
+<div>
+  <small *ngIf="searching" class="form-text text-muted">searching...</small>
+  <small *ngIf="searchFailed" class="form-text text-muted">
+    Sorry, suggestions could not be loaded.
+  </small>
+</div>
+
+<ul class="list-group list-group-horizontal-md">
+  <li *ngFor="let user of userTags; let i = index" class="list-group-item">
+    <span>{{ user.firstName }} {{ user.lastName }}</span
+    ><button
+      type="button"
+      (click)="removeUserTag(i)"
+      class="btn"
+      [disabled]="disabled"
+    >
+      <fa-icon [icon]="faTimes" class="text-danger"></fa-icon>
+    </button>
+  </li>
+</ul>

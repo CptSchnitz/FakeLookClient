@@ -1,0 +1,29 @@
+<div class="input-group mb-3">
+  <input type="text" class="form-control" placeholder="Tag" #tagField 
+  [ngbTypeahead]="searchTags"
+  [editable]="false"
+  [disabled]="disabled"/>
+  <div class="input-group-append">
+    <button
+      class="btn btn-outline-secondary"
+      type="button"
+      (click)="addTag(tagField.value)"
+    >
+      Add
+    </button>
+  </div>
+</div>
+<div>
+  <small *ngIf="searching" class="form-text text-muted">searching...</small>
+  <small *ngIf="searchFailed" class="form-text text-muted">
+    Sorry, suggestions could not be loaded.
+  </small>
+</div>
+<ul class="list-group list-group-horizontal-md">
+  <li *ngFor="let tag of tags; let i = index" class="list-group-item">
+    <span>{{ tag }} </span
+    ><button type="button" (click)="removeTag(i)" class="btn">
+      <fa-icon [icon]="faTimes" class="text-danger"></fa-icon>
+    </button>
+  </li>
+</ul>

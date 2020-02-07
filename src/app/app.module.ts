@@ -5,15 +5,13 @@ import { HttpClientModule } from '@angular/common/http';
 
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
-import { GeolocationService } from './shared/services/geolocationService/geolocation.service';
-import { UsersService } from './social/services/users/users.service';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { SharedModule } from './shared/shared.module';
 
 
 @NgModule({
   declarations: [AppComponent],
-  imports: [BrowserModule, NgbModule, AppRoutingModule, HttpClientModule, FontAwesomeModule],
-  providers: [GeolocationService, UsersService],
+  imports: [BrowserModule, NgbModule, AppRoutingModule, HttpClientModule, FontAwesomeModule, SharedModule.forRoot()],
   bootstrap: [AppComponent]
 })
 export class AppModule {}

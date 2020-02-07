@@ -4,6 +4,7 @@ import { GeolocationService } from 'src/app/shared/services/geolocationService/g
 import { PostSimple } from '../../model/postSimple.model';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
+import { GoogleMap, MapInfoWindow } from '@angular/google-maps';
 
 @Component({
   selector: 'app-map-feed',
@@ -13,9 +14,12 @@ import { takeUntil } from 'rxjs/operators';
 export class MapFeedComponent implements AfterViewInit, OnDestroy {
 
   private posts: PostSimple[] = [];
-  private markers: google.maps.Marker[] = [];
-
   private unsubscribe$ = new Subject<void>();
+  postsToDisplay: PostSimple[] = [];
+  private maxPostsOnMap = 100;
+  private maxPostsAsImages = 1;
+
+  clickedPost : PostSimple = null;
 
   @Input()
   Lng: number;
@@ -23,15 +27,30 @@ export class MapFeedComponent implements AfterViewInit, OnDestroy {
   @Input()
   Lat: number;
 
-  @ViewChild('mapContainer', { static: false }) gmap: ElementRef;
-  map: google.maps.Map;
+  center = {lat: 24, lng: 12};
+  zoom = 4;
+  @ViewChild('map',{static:false}) gmap: GoogleMap;
+  @ViewChild(MapInfoWindow, {static: false}) infoWindow: MapInfoWindow;
+
+  getMarkerOptions(post:PostSimple) : google.maps.MarkerOptions{
+
+    const options:google.maps.MarkerOptions = {draggable: false}
+    if (this.postsToDisplay.length <= this.maxPostsAsImages){
+      options.icon = {
+        url: "http://localhost:4000/images/thumb/" + post.image, 
+        scaledSize: new google.maps.Size(45,45,'px','px'),
+      };
+    } else {
+      options.icon = null;
+    }
+    
+    return options;
+  }
 
   mapOptions: google.maps.MapOptions = {
-    center: { lat: 31.769317, lng: 35.201113 },
     streetViewControl: false,
     mapTypeControl: false,
     rotateControl: false,
-    zoom: 8,
     styles: [
       {
         featureType: 'poi',
@@ -51,45 +70,30 @@ export class MapFeedComponent implements AfterViewInit, OnDestroy {
   constructor(private postsService: PostsService, private geoService: GeolocationService) { }
 
   ngAfterViewInit() {
-    this.postsService.getPosts().pipe(takeUntil(this.unsubscribe$)).subscribe((posts) => {
+     this.postsService.getPosts().pipe(takeUntil(this.unsubscribe$)).subscribe((posts) => {
       console.log(posts)
       this.posts = posts;
       this.geoService.getLocation().then((userLocation) => {
-        this.mapOptions.center = userLocation;
-        this.mapInitializer();
+        this.center = userLocation;
       });
     });
   }
 
-  mapInitializer() {
-    this.map = new google.maps.Map(this.gmap.nativeElement, this.mapOptions);
-    this.setMarkers();
-  }
-
-  setMarkers() {
-    if (this.map) {
-      this.removeMarkers();
-
-      this.posts.forEach((post) => {
-        this.markers.push(new google.maps.Marker({
-          position: post.location,
-          map: this.map,
-          icon: {
-            url: 'http://localhost:4000/images/' + post.image,
-            scaledSize: new google.maps.Size(20, 100),
-            
-          },
-          animation: google.maps.Animation.DROP,
-          title: post.postId.toString(),
-        }));
-      });
-      console.log(this.markers.length);
+  handleBoundsChange(){
+    this.postsToDisplay = [];
+    const mapBounds = this.gmap.getBounds();
+    for (const post of this.posts) {
+      if (mapBounds.contains(post.location)){
+        this.postsToDisplay.push(post);
+      }
     }
   }
 
-  removeMarkers() {
-    this.markers.forEach((marker) => marker.setMap(null));
-  }
+  openPostWindow(marker, post:PostSimple){
+    this.infoWindow.close();
+    this.clickedPost = post;
+    this.infoWindow.open(marker);
+  } 
 
   ngOnDestroy(): void {
     this.unsubscribe$.next();

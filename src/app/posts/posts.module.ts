@@ -11,8 +11,11 @@ import { TimeFeedItemComponent } from './components/time-feed-item/time-feed-ite
 import { FilterFormComponent } from './components/filter-form/filter-form.component';
 import { PostsService } from './services/posts-service/posts.service';
 import { ReactiveFormsModule } from '@angular/forms';
-import { NgbTypeaheadModule } from '@ng-bootstrap/ng-bootstrap';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import {GoogleMapsModule} from '@angular/google-maps';
+import { SocialModule } from '../social/social.module';
+import { PostMapInfoWindowComponent } from './components/post-map-info-window/post-map-info-window.component';
+import { SharedModule } from '../shared/shared.module';
 
 @NgModule({
   declarations: [
@@ -22,9 +25,10 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
     PostDetailsComponent,
     PostFormComponent,
     TimeFeedItemComponent,
-    FilterFormComponent
+    FilterFormComponent,
+    PostMapInfoWindowComponent
   ],
-  imports: [CommonModule, PostsRoutingModule, ReactiveFormsModule, NgbTypeaheadModule, FontAwesomeModule],
+  imports: [CommonModule, PostsRoutingModule, ReactiveFormsModule, FontAwesomeModule, GoogleMapsModule, SocialModule, SharedModule],
   providers: [PostsService]
 })
 export class PostsModule {}

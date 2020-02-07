@@ -10,13 +10,16 @@
           formControlName="text"
         ></textarea>
       </div>
-      <div *ngIf="text.invalid && (text.dirty || text.touched)" class="text-danger">
+      <div
+        *ngIf="text.invalid && (text.dirty || text.touched)"
+        class="text-danger"
+      >
         <div *ngIf="!!text.errors.maxLength">
           The text is too long
         </div>
       </div>
       <div class="form-group custom-file">
-        <label for="img" class="custom-file-label">Image</label>
+        <label for="img" class="custom-file-label">{{ fileName }}</label>
         <input
           type="file"
           class="form-control custom-file-input"
@@ -31,31 +34,12 @@
         <div *ngIf="!!image.errors.required">
           Image is required.
         </div>
+        <div *ngIf="!!image.errors.badType">
+          Unsupported File Format.
+        </div>
       </div>
-      <div formGroupName="location">
-        <div class="form-group">
-          <label for="lng">Longitude</label>
-          <input
-            type="number"
-            class="form-control"
-            id="lng"
-            max="90"
-            min="-90"
-            formControlName="lng"
-          />
-        </div>
-        <div *ngIf="lng.invalid && (lng.dirty || lng.touched)" class="text-danger">
-          <div *ngIf="!!lng.errors.required">
-            Longitude is required.
-          </div>
-          <div *ngIf="!!lng.errors.min">
-            Longitude must be higher than -90.
-          </div>
-          <div *ngIf="!!lng.errors.max">
-            Longitude must be lower than 90.
-          </div>
-        </div>
-        <div class="form-group">
+      <div class="row mt-3 mb-3" formGroupName="location">
+        <div class="form-group col-6">
           <label for="lat">Latitude</label>
           <input
             type="number"
@@ -66,7 +50,10 @@
             formControlName="lat"
           />
         </div>
-        <div *ngIf="lat.invalid && (lat.dirty || lat.touched)" class="text-danger">
+        <div
+          *ngIf="lat.invalid && (lat.dirty || lat.touched)"
+          class="text-danger"
+        >
           <div *ngIf="!!lat.errors.required">
             Latitude is required.
           </div>
@@ -77,54 +64,37 @@
             Latitude must be lower than 180.
           </div>
         </div>
-      </div>
-      <div class="input-group mb-3">
-        <input type="text" class="form-control" placeholder="Tag" #tagField />
-        <div class="input-group-append">
-          <button
-            class="btn btn-outline-secondary"
-            type="button"
-            (click)="addTag(tagField.value)"
-          >
-            Add
-          </button>
+        <div class="form-group col-6">
+          <label for="lng">Longitude</label>
+          <input
+            type="number"
+            class="form-control"
+            id="lng"
+            max="90"
+            min="-90"
+            formControlName="lng"
+          />
+        </div>
+        <div
+          *ngIf="lng.invalid && (lng.dirty || lng.touched)"
+          class="text-danger"
+        >
+          <div *ngIf="!!lng.errors.required">
+            Longitude is required.
+          </div>
+          <div *ngIf="!!lng.errors.min">
+            Longitude must be higher than -90.
+          </div>
+          <div *ngIf="!!lng.errors.max">
+            Longitude must be lower than 90.
+          </div>
         </div>
       </div>
-      <ul class="list-group list-group-horizontal-md">
-        <li *ngFor="let tag of postTags; let i = index" class="list-group-item">
-          <span>{{ tag }} </span
-          ><button type="button" (click)="removeTag(i)" class="btn">
-            <fa-icon [icon]="faTimes" class="text-danger"></fa-icon>
-          </button>
-        </li>
-      </ul>
-      <div class="form-group">
-        <label for="tagUser">Tag User</label>
-        <input
-          id="tagUser"
-          type="text"
-          class="form-control"
-          [ngbTypeahead]="searchUsers"
-          [inputFormatter]="emptyFormatter"
-          [resultFormatter]="userFormatter"
-          [editable]="false"
-          (selectItem)="addUserTag($event)"
-        />
-      </div>
-      <ul class="list-group list-group-horizontal-md">
-        <li
-          *ngFor="let user of userTags; let i = index"
-          class="list-group-item"
-        >
-          <span>{{ user.firstName }} {{ user.lastName }}</span
-          ><button type="button" (click)="removeUserTag(i)" class="btn">
-            <fa-icon [icon]="faTimes" class="text-danger"></fa-icon>
-          </button>
-        </li>
-      </ul>
+      <app-tags-control formControlName="tags"></app-tags-control>
+      <app-user-tags-control formControlName="userTags"></app-user-tags-control>
       <button
         type="submit"
-        class="btn btn-primary"
+        class="btn btn-primary "
         [disabled]="postForm.invalid"
       >
         Submit

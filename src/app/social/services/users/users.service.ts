@@ -12,7 +12,8 @@ export class UsersService {
   private apiUrl = environment.backendUrl + '/api/users';
   constructor(private http: HttpClient) {}
 
-  getUsers(): Observable<SimpleUser[]> {
-    return this.http.get<SimpleUser[]>(this.apiUrl);
+  getUsers(filter? : string): Observable<SimpleUser[]> {
+    const queryString = filter ? `?filter=${filter}` : ''
+    return this.http.get<SimpleUser[]>(this.apiUrl + queryString);
   }
 }
