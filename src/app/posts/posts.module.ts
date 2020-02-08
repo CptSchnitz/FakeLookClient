@@ -12,10 +12,11 @@ import { FilterFormComponent } from './components/filter-form/filter-form.compon
 import { PostsService } from './services/posts-service/posts.service';
 import { ReactiveFormsModule } from '@angular/forms';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
-import {GoogleMapsModule} from '@angular/google-maps';
+import { GoogleMapsModule } from '@angular/google-maps';
 import { SocialModule } from '../social/social.module';
 import { PostMapInfoWindowComponent } from './components/post-map-info-window/post-map-info-window.component';
 import { SharedModule } from '../shared/shared.module';
+import { NgbDatepickerModule } from '@ng-bootstrap/ng-bootstrap';
 
 @NgModule({
   declarations: [
@@ -28,7 +29,16 @@ import { SharedModule } from '../shared/shared.module';
     FilterFormComponent,
     PostMapInfoWindowComponent
   ],
-  imports: [CommonModule, PostsRoutingModule, ReactiveFormsModule, FontAwesomeModule, GoogleMapsModule, SocialModule, SharedModule],
+  imports: [
+    CommonModule,
+    PostsRoutingModule,
+    ReactiveFormsModule,
+    FontAwesomeModule,
+    GoogleMapsModule,
+    SocialModule,
+    SharedModule,
+    NgbDatepickerModule
+  ],
   providers: [PostsService]
 })
 export class PostsModule {}

@@ -1,20 +1,33 @@
-<!-- <div #mapContainer id="map" ></div> -->
-<google-map
-  height="700px"
-  width="1000px"
-  [center]="center"
-  [zoom]="zoom"
-  [options]="mapOptions"
-  (boundsChanged)="handleBoundsChange($event)"
-  #map
->
-
-  <ng-container *ngFor="let post of postsToDisplay">
-    <map-marker #marker
-      [position]="post.location"
-      [options]="getMarkerOptions(post)"
-      (mapClick)="openPostWindow(marker, post)"
-    ></map-marker>
-    <map-info-window><app-post-map-info-window [post]='clickedPost'></app-post-map-info-window></map-info-window>
-  </ng-container>
-</google-map>
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-3">
+      <app-filter-form (searchSubmitted)="handleSearch($event)"></app-filter-form>
+    </div>
+    <div class="col-9">
+      <google-map
+        
+        height="700px"
+        width="72vw"
+        [center]="center"
+        [zoom]="zoom"
+        [options]="mapOptions"
+        (boundsChanged)="handleBoundsChange($event)"
+        #map
+      >
+        <ng-container *ngFor="let post of postsToDisplay">
+          <map-marker
+            #marker
+            [position]="post.location"
+            [options]="getMarkerOptions(post)"
+            (mapClick)="openPostWindow(marker, post)"
+          ></map-marker>
+          <map-info-window
+            ><app-post-map-info-window
+              [post]="clickedPost"
+            ></app-post-map-info-window
+          ></map-info-window>
+        </ng-container>
+      </google-map>
+    </div>
+  </div>
+</div>

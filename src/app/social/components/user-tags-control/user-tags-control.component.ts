@@ -27,6 +27,9 @@ export class UserTagsControlComponent implements OnDestroy, ControlValueAccessor
   @Input()
   disabled = false;
 
+  @Input()
+  label = 'Tag User';
+
   constructor(private userService: UsersService) { }
 
   userTags: SimpleUser[] = [];

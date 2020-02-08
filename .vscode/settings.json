@@ -1,5 +1,6 @@
 {
-  "prettier.disableLanguages": [
-    "typescript"
-  ]
+  "prettier.arrowParens": "always",
+  "prettier.endOfLine": "lf",
+  "prettier.singleQuote": true,
+  "prettier.trailingComma": "es5"
 }

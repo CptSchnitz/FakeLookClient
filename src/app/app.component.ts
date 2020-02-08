@@ -13,7 +13,6 @@ export class AppComponent /** implements AfterViewInit */ {
   title = 'FakeLookClient';
   // constructor(@Inject(DOCUMENT) private document,
   //             private elementRef: ElementRef) { }
-
   // ngAfterViewInit(): void {
   //   const googleApiKey = environment.googleApiKey;
   //   const script = this.document.createElement('script');

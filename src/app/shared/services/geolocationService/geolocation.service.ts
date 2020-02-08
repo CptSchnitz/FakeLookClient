@@ -13,8 +13,8 @@ export class GeolocationService {
         navigator.geolocation.getCurrentPosition(
           (position) =>
             resolve({
+              lat: position.coords.latitude,
               lng: position.coords.longitude,
-              lat: position.coords.latitude
             }),
           (error) => reject()
         );
