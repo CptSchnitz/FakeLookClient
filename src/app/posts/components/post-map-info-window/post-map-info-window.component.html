@@ -9,5 +9,8 @@
     <p class="card-text">
       <small class="text-muted">{{ post.publishDate | date: 'short' }}</small>
     </p>
+    <p>
+      <a class="btn btn-secondary" [routerLink]="['/posts/details',post.postId]">link</a>
+    </p>
   </div>
 </div>

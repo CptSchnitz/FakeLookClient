@@ -14,6 +14,7 @@ import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { GoogleMap, MapInfoWindow } from '@angular/google-maps';
 import { PostFilter, OrderPostBy } from '../../model/postFilter.model';
+import { environment } from '../../../../environments/environment';
 
 @Component({
   selector: 'app-map-feed',
@@ -24,13 +25,13 @@ export class MapFeedComponent implements AfterViewInit, OnDestroy {
   constructor(
     private postsService: PostsService,
     private geoService: GeolocationService
-  ) {}
+  ) { }
 
   private posts: PostSimple[] = [];
   private unsubscribe$ = new Subject<void>();
   postsToDisplay: PostSimple[] = [];
   private maxPostsOnMap = 100;
-  private maxPostsAsImages = 1;
+  private maxPostsAsImages = 3;
 
   clickedPost: PostSimple = null;
 
@@ -49,6 +50,7 @@ export class MapFeedComponent implements AfterViewInit, OnDestroy {
     streetViewControl: false,
     mapTypeControl: false,
     rotateControl: false,
+    fullscreenControl: false,
     styles: [
       {
         featureType: 'poi',
@@ -65,7 +67,7 @@ export class MapFeedComponent implements AfterViewInit, OnDestroy {
     const options: google.maps.MarkerOptions = { draggable: false };
     if (this.postsToDisplay.length <= this.maxPostsAsImages) {
       options.icon = {
-        url: 'http://localhost:4000/images/thumb/' + post.image,
+        url: environment.backendUrl + '/images/thumb/' + post.image,
         scaledSize: new google.maps.Size(45, 45, 'px', 'px')
       };
     } else {
@@ -76,7 +78,7 @@ export class MapFeedComponent implements AfterViewInit, OnDestroy {
 
   ngAfterViewInit() {
     this.postsService
-      .getPosts()
+      .getPosts({ orderBy: OrderPostBy.likes })
       .pipe(takeUntil(this.unsubscribe$))
       .subscribe(posts => {
         this.posts = posts;
@@ -95,9 +97,6 @@ export class MapFeedComponent implements AfterViewInit, OnDestroy {
         next: posts => {
           this.posts = posts;
           this.handleBoundsChange();
-        },
-        error: error => {
-          console.log(error);
         }
       });
   }
@@ -113,7 +112,6 @@ export class MapFeedComponent implements AfterViewInit, OnDestroy {
   }
 
   openPostWindow(marker, post: PostSimple) {
-    this.infoWindow.close();
     this.clickedPost = post;
     this.infoWindow.open(marker);
   }

@@ -1,0 +1,32 @@
+<div class="container">
+  <div class="col-6">
+    <form [formGroup]="commentForm" (ngSubmit)="onSubmit()">
+      <div class="form-group">
+        <label for="text">Text</label>
+        <textarea
+          class="form-control"
+          id="text"
+          maxlength="500"
+          formControlName="text"
+        ></textarea>
+      </div>
+      <div
+        *ngIf="text.invalid && (text.dirty || text.touched)"
+        class="text-danger"
+      >
+        <div *ngIf="!!text.errors.maxLength">
+          The text is too long
+        </div>
+      </div>
+      <app-tags-control formControlName="tags"></app-tags-control>
+      <app-user-tags-control formControlName="userTags"></app-user-tags-control>
+      <button
+        type="submit"
+        class="btn btn-primary "
+        [disabled]="commentForm.invalid"
+      >
+        Submit
+      </button>
+    </form>
+  </div>
+</div>

@@ -16,7 +16,11 @@ import { GoogleMapsModule } from '@angular/google-maps';
 import { SocialModule } from '../social/social.module';
 import { PostMapInfoWindowComponent } from './components/post-map-info-window/post-map-info-window.component';
 import { SharedModule } from '../shared/shared.module';
-import { NgbDatepickerModule } from '@ng-bootstrap/ng-bootstrap';
+import { NgbDatepickerModule, NgbModalModule } from '@ng-bootstrap/ng-bootstrap';
+import { CommentsService } from './services/comments-service/comments.service';
+import { CommentsComponent } from './components/comments/comments.component';
+import { CommentItemComponent } from './components/comment-item/comment-item.component';
+import { CommentFormComponent } from './components/comment-form/comment-form.component';
 
 @NgModule({
   declarations: [
@@ -27,7 +31,10 @@ import { NgbDatepickerModule } from '@ng-bootstrap/ng-bootstrap';
     PostFormComponent,
     TimeFeedItemComponent,
     FilterFormComponent,
-    PostMapInfoWindowComponent
+    PostMapInfoWindowComponent,
+    CommentsComponent,
+    CommentItemComponent,
+    CommentFormComponent
   ],
   imports: [
     CommonModule,
@@ -37,8 +44,10 @@ import { NgbDatepickerModule } from '@ng-bootstrap/ng-bootstrap';
     GoogleMapsModule,
     SocialModule,
     SharedModule,
-    NgbDatepickerModule
+    NgbDatepickerModule,
+    NgbModalModule
   ],
-  providers: [PostsService]
+  providers: [PostsService, CommentsService],
+  entryComponents: [CommentFormComponent]
 })
 export class PostsModule {}

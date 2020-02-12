@@ -1,0 +1,15 @@
+<div class="modal-body">
+  <google-map #gmap height="400px" width="100%" [options]="mapOptions" (mapClick)='handleMapClick($event)'>
+  <map-marker *ngIf='location' [position]='location'></map-marker>
+  </google-map>
+</div>
+<br />
+<div class="modal-footer">
+  <button class="btn btn-primary" type="button" (click)="selectClicked()" [disabled]='!location'>select</button>
+</div>
+<div style="display: none">
+  <input #input
+         class="controls"
+         type="text"
+         placeholder="Enter a location">
+</div>

@@ -1,1 +1,20 @@
-<p>post-details works!</p>
+<div class="container" *ngIf="post">
+  <h2>Post</h2>
+  <figure class="figure">
+    <img
+      src="http://localhost:4000/images/{{ post.image }}"
+      class="figure-img img-fluid rounded"
+      alt="..."
+    />
+    <figcaption class="figure-caption text-right">
+      <strong>#{{ post.postId }}</strong>
+      {{ post.publishDate | date: 'd/M/yy, h:mm a' }}
+    </figcaption>
+  </figure>
+  <p>{{ post.text }}</p>
+  <p>likes: {{ post.likes }}</p>
+<p *ngIf='post.tags.length > 0'>tags: <span *ngFor="let tag of post.tags">{{tag.name}}, </span></p>
+<p *ngIf='post.userTags.length > 0'>user tags: <span *ngFor="let userTag of post.userTags">{{userTag.firstName + ' ' + userTag.lastName}}, </span></p>
+<button type="button" class="btn btn-primary" (click)="openAddCommentModal()">Add Comment</button>
+<app-comments [comments]='post.comments'></app-comments>
+</div>

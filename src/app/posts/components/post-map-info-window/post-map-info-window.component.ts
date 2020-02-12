@@ -8,11 +8,10 @@ import { PostSimple } from '../../model/postSimple.model';
 })
 export class PostMapInfoWindowComponent implements OnInit {
 
-  @Input() post:PostSimple
+  @Input() post: PostSimple
   constructor() { }
 
   ngOnInit() {
-    
   }
 
 }

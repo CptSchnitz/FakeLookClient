@@ -2,10 +2,14 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { FormGroup, FormControl, FormArray, Validators } from '@angular/forms';
 import { GeolocationService } from 'src/app/shared/services/geolocationService/geolocation.service';
 import { SimpleUser } from 'src/app/social/model/simpleUser.model';
-import { Subject, Observable } from 'rxjs';
+import { Subject } from 'rxjs';
 import { faTimes } from '@fortawesome/free-solid-svg-icons';
 import { PostsService } from '../../services/posts-service/posts.service';
 import { ValidateImageType } from 'src/app/shared/validators/validateImageType.validator';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { LocationSelectorComponent } from 'src/app/shared/components/location-selector/location-selector.component';
+import { Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-post-form',
@@ -19,7 +23,8 @@ export class PostFormComponent implements OnInit, OnDestroy {
 
   faTimes = faTimes;
 
-  constructor(private geoService: GeolocationService, private postsService: PostsService) { }
+  constructor(private geoService: GeolocationService, private postsService: PostsService,
+    private router: Router, private modalService: NgbModal, private toastr: ToastrService) { }
 
   postForm = new FormGroup({
     text: new FormControl('', Validators.maxLength(500)),
@@ -73,9 +78,10 @@ export class PostFormComponent implements OnInit, OnDestroy {
 
   onSubmit() {
     const userArr = this.postForm.get('userTags').value as SimpleUser[];
-    const post = {...this.postForm.value, userTags: userArr.map((user) => user.userId)};
-    this.postsService.createPost(post).subscribe(() => {
-      console.log('we did it!');
+    const post = { ...this.postForm.value, userTags: userArr.map((user) => user.userId) };
+    this.postsService.createPost(post).subscribe(({ postId }) => {
+      this.toastr.success('the post was created', 'we did it!',{progressBar: true});
+      this.router.navigate(['/posts/details', postId]);
     });
   }
 
@@ -95,5 +101,13 @@ export class PostFormComponent implements OnInit, OnDestroy {
       this.postForm.get('image').reset();
       this.fileName = 'Image';
     }
+  }
+
+  openLocationSelector() {
+    const modal = this.modalService.open(LocationSelectorComponent, { size: 'lg' });
+    modal.componentInstance.point = this.postForm.get('location').value;
+    modal.result.then((point) => {
+      this.postForm.get('location').patchValue(point);
+    }, () => { })
   }
 }

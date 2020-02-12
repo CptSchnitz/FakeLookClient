@@ -4,13 +4,13 @@ export enum OrderPostBy {
 }
 
 export interface PostFilter {
-  publishers: number[];
-  tags: string[];
-  userTags: number[];
-  distance: number;
-  lat: number;
-  lng: number;
-  minDate: Date;
-  maxDate: Date;
-  orderBy: OrderPostBy;
+  publishers?: number[];
+  tags?: string[];
+  userTags?: number[];
+  distance?: number;
+  lat?: number;
+  lng?: number;
+  minDate?: Date;
+  maxDate?: Date;
+  orderBy?: OrderPostBy;
 }

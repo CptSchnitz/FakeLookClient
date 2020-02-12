@@ -35,7 +35,7 @@ export class UserTagsControlComponent implements OnDestroy, ControlValueAccessor
   userTags: SimpleUser[] = [];
 
   addUserTag(selectedUser: NgbTypeaheadSelectItemEvent) {
-    if (!this.disabled){
+    if (!this.disabled) {
       const user = selectedUser.item as SimpleUser;
       this.userTags.push(user);
       this.onChange(this.userTags);
@@ -44,13 +44,13 @@ export class UserTagsControlComponent implements OnDestroy, ControlValueAccessor
   }
 
   removeUserTag(tagIndex: number) {
-      if (!this.disabled){
+    if (!this.disabled) {
       this.userTags.splice(tagIndex, 1);
       this.onChange(this.userTags);
       this.onTouched();
     }
   }
-  
+
   userFormatter = (user: SimpleUser) => `${user.firstName} ${user.lastName}`;
   emptyFormatter = (user: SimpleUser) => '';
 
@@ -66,30 +66,30 @@ export class UserTagsControlComponent implements OnDestroy, ControlValueAccessor
         this.searchFailed = true;
         return of([]);
       }))
-      ),
-      map((users) => users.filter(user =>{
-        const isUserTagged = this.userTags.findIndex((ut) => ut.userId === user.userId) !== -1;
-        return !isUserTagged;
-      }).slice(0,10)),
-      tap(() => this.searching = false)
+    ),
+    map((users) => users.filter(user => {
+      const isUserTagged = this.userTags.findIndex((ut) => ut.userId === user.userId) !== -1;
+      return !isUserTagged;
+    }).slice(0, 10)),
+    tap(() => this.searching = false)
   )
-    ngOnDestroy(): void {
-      this.unsubscribe$.next();
-    }
-    writeValue(obj: SimpleUser[]): void {
-      this.userTags = obj;
-      this.onChange(this.userTags);
-    }
-    registerOnChange(fn: (users: SimpleUser[]) => void): void {
-      this.onChange = fn;
-    }
-    registerOnTouched(fn: () => void): void {
-      this.onTouched = fn
-    }
-    setDisabledState?(isDisabled: boolean): void {
-      this.disabled = isDisabled;
-    }
-
-    onChange = (users: SimpleUser[]) => {}
-    onTouched = () => {}
+  ngOnDestroy(): void {
+    this.unsubscribe$.next();
   }
+  writeValue(obj: SimpleUser[]): void {
+    this.userTags = obj;
+    this.onChange(this.userTags);
+  }
+  registerOnChange(fn: (users: SimpleUser[]) => void): void {
+    this.onChange = fn;
+  }
+  registerOnTouched(fn: () => void): void {
+    this.onTouched = fn;
+  }
+  setDisabledState?(isDisabled: boolean): void {
+    this.disabled = isDisabled;
+  }
+
+  onChange = (users: SimpleUser[]) => { }
+  onTouched = () => { }
+}

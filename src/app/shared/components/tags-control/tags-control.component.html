@@ -2,6 +2,7 @@
   <label for="tag">Tags</label>
   <div class="input-group mb-3">
     <input
+      #text
       type="text"
       id="tag"
       class="form-control"
@@ -16,6 +17,7 @@
         class="btn btn-outline-secondary"
         type="button"
         (click)="addTag(tagField.value)"
+        [disabled]='text.value < 2'
       >
         Add
       </button>

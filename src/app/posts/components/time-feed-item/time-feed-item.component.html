@@ -1,1 +1,24 @@
-<div><span>{{post.image}} </span><span>{{post.likes}}</span>{{post.likes}}</div>
+<div class="row align-items-center">
+  <div class="col-2">
+    <img
+      class="thumb"
+      src="http://localhost:4000/images/thumb/{{ post.image }}"
+    />
+  </div>
+  <div class="col-6">
+    <p>{{ post.text }}</p>
+  </div>
+  <div class="col-1">
+    <a class="btn btn-secondary" [routerLink]="['/posts/details',post.postId]">link</a>
+  </div>
+  <div class="col-1">
+    <strong>{{post.likes}}</strong>
+  </div>
+  <div class="col-2 text-right">
+    <div>
+      <small class="text-muted">{{post.user.name }}</small>
+    </div>
+    <div>
+      <small class="text-muted">{{ post.publishDate | date: 'd/M/yy, h:mm a' }}</small>
+    </div>
+</div>
