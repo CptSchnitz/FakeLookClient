@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import { SimpleUser } from '../../model/simpleUser.model';
-import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
+import { AuthHttpService } from 'src/app/auth-http.service';
 
 @Injectable({
   providedIn: 'root'
@@ -10,7 +10,7 @@ import { environment } from 'src/environments/environment';
 export class UsersService {
 
   private apiUrl = environment.backendUrl + '/api/users';
-  constructor(private http: HttpClient) {}
+  constructor(private http: AuthHttpService) {}
 
   getUsers(filter? : string): Observable<SimpleUser[]> {
     const queryString = filter ? `?filter=${filter}` : ''

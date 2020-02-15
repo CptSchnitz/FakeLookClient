@@ -1,18 +1,18 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { PostSimple } from 'src/app/posts/model/postSimple.model';
 import { environment } from 'src/environments/environment';
 import { NewPost } from '../../model/NewPost.model';
 import { PostFilter } from '../../model/postFilter.model';
 import { Post } from '../../model/post.model';
+import { AuthHttpService } from 'src/app/auth-http.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class PostsService {
   private apiUrl = environment.backendUrl + '/api/posts';
-  constructor(private http: HttpClient) { }
+  constructor(private http: AuthHttpService) { }
 
   getPostById(id: number): Observable<Post> {
     return this.http.get<Post>(this.apiUrl + '/' + id);

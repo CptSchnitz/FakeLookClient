@@ -25,7 +25,7 @@ export class MapFeedComponent implements AfterViewInit, OnDestroy {
   constructor(
     private postsService: PostsService,
     private geoService: GeolocationService
-  ) { }
+  ) {}
 
   private posts: PostSimple[] = [];
   private unsubscribe$ = new Subject<void>();
@@ -77,14 +77,15 @@ export class MapFeedComponent implements AfterViewInit, OnDestroy {
   }
 
   ngAfterViewInit() {
+    this.geoService.getLocation().then(userLocation => {
+      this.center = userLocation;
+    });
     this.postsService
       .getPosts({ orderBy: OrderPostBy.likes })
       .pipe(takeUntil(this.unsubscribe$))
       .subscribe(posts => {
         this.posts = posts;
-        this.geoService.getLocation().then(userLocation => {
-          this.center = userLocation;
-        });
+        this.handleBoundsChange();
       });
   }
 

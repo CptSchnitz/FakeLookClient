@@ -16,8 +16,8 @@
       <button
         class="btn btn-outline-secondary"
         type="button"
-        (click)="addTag(tagField.value)"
-        [disabled]='text.value < 2'
+        (click)="addTag(tagField.value); text.value = ''"
+        [disabled]="text.value < 2 || tags.includes(text.value)"
       >
         Add
       </button>
@@ -29,12 +29,8 @@
       Sorry, suggestions could not be loaded.
     </small>
   </div>
-  <ul class="list-group list-group-horizontal-md">
-    <li *ngFor="let tag of tags; let i = index" class="list-group-item">
-      <span>{{ tag }} </span
-      ><button type="button" (click)="removeTag(i)" class="btn">
-        <fa-icon [icon]="faTimes" class="text-danger"></fa-icon>
-      </button>
-    </li>
-  </ul>
+  <div class="d-flex flex-wrap">
+    <app-tag *ngFor="let tag of tags; let i = index;" (tagClick)="removeTag(i)" [content]="tag">
+    </app-tag>
+  </div>
 </div>

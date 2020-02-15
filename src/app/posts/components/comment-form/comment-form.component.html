@@ -1,4 +1,4 @@
-<div class="container">
+<div class="container m-3">
   <div class="col-6">
     <form [formGroup]="commentForm" (ngSubmit)="onSubmit()">
       <div class="form-group">
@@ -7,8 +7,16 @@
           class="form-control"
           id="text"
           maxlength="500"
-          formControlName="text"
+          [formControl]="text"
         ></textarea>
+      </div>
+      <div
+        *ngIf="text.invalid && (text.dirty || text.touched)"
+        class="text-danger"
+      >
+        <div *ngIf="!!text.errors.maxLength">
+          The text is too long
+        </div>
       </div>
       <div
         *ngIf="text.invalid && (text.dirty || text.touched)"
@@ -20,6 +28,14 @@
       </div>
       <app-tags-control formControlName="tags"></app-tags-control>
       <app-user-tags-control formControlName="userTags"></app-user-tags-control>
+      <div
+        *ngIf="commentForm.invalid && (commentForm.dirty || commentForm.touched)"
+        class="text-danger"
+      >
+        <div *ngIf="!!commentForm.errors.atLeastOneRequired">
+          At least one of the fields is required.
+        </div>
+      </div>
       <button
         type="submit"
         class="btn btn-primary "

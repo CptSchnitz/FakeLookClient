@@ -5,6 +5,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { UserTagsControlComponent } from './components/user-tags-control/user-tags-control.component';
 import { NgbTypeaheadModule } from '@ng-bootstrap/ng-bootstrap';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { SharedModule } from '../shared/shared.module';
 
 
 
@@ -14,7 +15,8 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
     CommonModule,
     HttpClientModule,
     NgbTypeaheadModule,
-    FontAwesomeModule
+    FontAwesomeModule,
+    SharedModule
   ],
   exports: [UserTagsControlComponent],
   providers: [UsersService]

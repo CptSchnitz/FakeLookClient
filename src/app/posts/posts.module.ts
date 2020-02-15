@@ -2,7 +2,6 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 import { PostsRoutingModule } from './posts-routing.module';
-import { PostsLayoutComponent } from './components/posts-layout/posts-layout.component';
 import { MapFeedComponent } from './components/map-feed/map-feed.component';
 import { TimeFeedComponent } from './components/time-feed/time-feed.component';
 import { PostDetailsComponent } from './components/post-details/post-details.component';
@@ -21,10 +20,10 @@ import { CommentsService } from './services/comments-service/comments.service';
 import { CommentsComponent } from './components/comments/comments.component';
 import { CommentItemComponent } from './components/comment-item/comment-item.component';
 import { CommentFormComponent } from './components/comment-form/comment-form.component';
+import { LikeComponent } from './components/like/like.component';
 
 @NgModule({
   declarations: [
-    PostsLayoutComponent,
     MapFeedComponent,
     TimeFeedComponent,
     PostDetailsComponent,
@@ -34,7 +33,8 @@ import { CommentFormComponent } from './components/comment-form/comment-form.com
     PostMapInfoWindowComponent,
     CommentsComponent,
     CommentItemComponent,
-    CommentFormComponent
+    CommentFormComponent,
+    LikeComponent
   ],
   imports: [
     CommonModule,

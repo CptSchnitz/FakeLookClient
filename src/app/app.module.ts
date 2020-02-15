@@ -9,13 +9,14 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { SharedModule } from './shared/shared.module';
 import { ToastrModule } from 'ngx-toastr';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { AuthenticationModule } from './authentication/authentication.module';
 
 
 @NgModule({
   declarations: [AppComponent],
   imports: [BrowserModule, NgbModule, BrowserAnimationsModule,
     ToastrModule.forRoot({ positionClass: 'toast-top-center', progressBar: true }),
-    AppRoutingModule, HttpClientModule, FontAwesomeModule, SharedModule.forRoot()],
+    AppRoutingModule, HttpClientModule, FontAwesomeModule, SharedModule.forRoot(), AuthenticationModule],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

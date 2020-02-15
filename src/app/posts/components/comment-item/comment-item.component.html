@@ -1,4 +1,30 @@
 <div class="row">
-  <div class="col-1">{{ comment.text }}</div>
+  <div class="col-1"></div>
+  <div class="col-6">
+    <div *ngIf="comment.text">
+      {{ comment.text }}
+    </div>
+    <div *ngIf="comment.tags.length > 0">
+      tags:
+      <div class="d-flex flex-wrap">
+        <app-tag
+          *ngFor="let tag of comment.tags"
+          [disabled]="true"
+          [content]="tag.name"
+        ></app-tag>
+      </div>
+    </div>
+    <div *ngIf="comment.userTags.length > 0">
+      user tags:
+      <div class="d-flex flex-wrap">
+        <app-tag
+          *ngFor="let tag of comment.userTags"
+          [disabled]="true"
+          [content]="tag.firstName + ' ' + tag.lastName"
+        ></app-tag>
+      </div>
+    </div>
+  </div>
   <div class="col-1">{{ comment.creator.firstName }}</div>
+  <div class="col-2">{{ comment.publishDate | date: 'd/M/yy, h:mm a' }}</div>
 </div>

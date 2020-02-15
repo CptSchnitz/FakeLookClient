@@ -10,6 +10,7 @@ export interface Post {
   text: string;
   owner: SimpleUser;
   likes: number;
+  likedByUser: boolean;
   userTags: SimpleUser[];
   tags: { id: number, name: string }[];
   comments: PostComment[];

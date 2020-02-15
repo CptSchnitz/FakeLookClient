@@ -12,9 +12,29 @@
     </figcaption>
   </figure>
   <p>{{ post.text }}</p>
-  <p>likes: {{ post.likes }}</p>
-<p *ngIf='post.tags.length > 0'>tags: <span *ngFor="let tag of post.tags">{{tag.name}}, </span></p>
-<p *ngIf='post.userTags.length > 0'>user tags: <span *ngFor="let userTag of post.userTags">{{userTag.firstName + ' ' + userTag.lastName}}, </span></p>
-<button type="button" class="btn btn-primary" (click)="openAddCommentModal()">Add Comment</button>
-<app-comments [comments]='post.comments'></app-comments>
+  <app-like></app-like>
+  <div *ngIf="post.tags.length > 0">
+    tags:
+    <div class="d-flex flex-wrap">
+      <app-tag
+        *ngFor="let tag of post.tags"
+        [disabled]="true"
+        [content]="tag.name"
+      ></app-tag>
+    </div>
+  </div>
+  <div *ngIf="post.userTags.length > 0">
+    user tags:
+    <div class="d-flex flex-wrap">
+      <app-tag
+        *ngFor="let tag of post.userTags"
+        [disabled]="true"
+        [content]="tag.firstName + ' ' + tag.lastName"
+      ></app-tag>
+    </div>
+  </div>
+  <button type="button" class="btn btn-primary" (click)="openAddCommentModal()">
+    Add Comment
+  </button>
+  <app-comments [comments]="post.comments"></app-comments>
 </div>

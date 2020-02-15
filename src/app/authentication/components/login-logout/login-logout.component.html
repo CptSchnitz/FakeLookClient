@@ -1,0 +1,8 @@
+<ng-container *ngIf="loggedUser" ; else elseTemplate>
+  <span>Hello {{ loggedUser.firstName }}</span>
+  <button (click)="logout()" class="btn btn-primary">Logout</button>
+</ng-container>
+
+<ng-container *ngIf="loggedUser == null">
+  <a [routerLink]="['/auth/login']" class="btn btn-primary">Login</a>
+</ng-container>

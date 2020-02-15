@@ -19,16 +19,6 @@
   </small>
 </div>
 
-<ul class="list-group list-group-horizontal-md">
-  <li *ngFor="let user of userTags; let i = index" class="list-group-item">
-    <span>{{ user.firstName }} {{ user.lastName }}</span
-    ><button
-      type="button"
-      (click)="removeUserTag(i)"
-      class="btn"
-      [disabled]="disabled"
-    >
-      <fa-icon [icon]="faTimes" class="text-danger"></fa-icon>
-    </button>
-  </li>
-</ul>
+<div class="d-flex flex-wrap">
+  <app-tag *ngFor="let user of userTags; let i = index;" (tagClick)="removeUserTag(i)" [disabled]="disabled" [content]='user.firstName +" " + user.lastName'></app-tag>
+</div>

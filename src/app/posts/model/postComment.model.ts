@@ -7,6 +7,7 @@ export default interface PostComment {
   text: string;
   creator: SimpleUser;
   likes: number;
+  likedByUser: boolean;
   userTags: SimpleUser[];
   tags: Tag[];
 }

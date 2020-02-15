@@ -13,16 +13,24 @@ import PostComment from '../../model/postComment.model';
   styleUrls: ['./post-details.component.css']
 })
 export class PostDetailsComponent implements OnInit {
-
-  constructor(private route: ActivatedRoute, private postService: PostsService, private modalService: NgbModal) { }
+  constructor(
+    private route: ActivatedRoute,
+    private postService: PostsService,
+    private modalService: NgbModal
+  ) {}
 
   post: Post;
   ngOnInit() {
     this.route.paramMap
       .pipe(
-        switchMap(params => this.postService.getPostById(Number(params.get('id'))))
+        switchMap(params =>
+          this.postService.getPostById(Number(params.get('id')))
+        )
       )
-      .subscribe(post => this.post = post);
+      .subscribe(post => {
+        console.log(post);
+        return (this.post = post);
+      });
   }
 
   openAddCommentModal() {
@@ -31,8 +39,7 @@ export class PostDetailsComponent implements OnInit {
     commentForm.result.then((comment: PostComment) => {
       console.log(comment);
 
-      this.post.comments.push(comment);
+      this.post.comments = [...this.post.comments, comment];
     });
   }
-
 }

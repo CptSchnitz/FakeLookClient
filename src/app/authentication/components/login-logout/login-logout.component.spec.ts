@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { PostsLayoutComponent } from './posts-layout.component';
+import { LoginLogoutComponent } from './login-logout.component';
 
-describe('PostsLayoutComponent', () => {
-  let component: PostsLayoutComponent;
-  let fixture: ComponentFixture<PostsLayoutComponent>;
+describe('LoginLogoutComponent', () => {
+  let component: LoginLogoutComponent;
+  let fixture: ComponentFixture<LoginLogoutComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ PostsLayoutComponent ]
+      declarations: [ LoginLogoutComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(PostsLayoutComponent);
+    fixture = TestBed.createComponent(LoginLogoutComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

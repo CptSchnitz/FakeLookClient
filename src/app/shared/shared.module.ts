@@ -7,11 +7,12 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { TagsControlComponent } from './components/tags-control/tags-control.component';
 import { LocationSelectorComponent } from './components/location-selector/location-selector.component';
 import { GoogleMapsModule } from '@angular/google-maps';
+import { TagComponent } from './components/tag/tag.component';
 
 
 
 @NgModule({
-  declarations: [TagsControlComponent, LocationSelectorComponent],
+  declarations: [TagsControlComponent, LocationSelectorComponent, TagComponent],
   imports: [
     CommonModule,
     NgbTypeaheadModule,
@@ -19,7 +20,7 @@ import { GoogleMapsModule } from '@angular/google-maps';
     GoogleMapsModule,
     NgbModalModule
   ],
-  exports: [TagsControlComponent, LocationSelectorComponent],
+  exports: [TagsControlComponent, LocationSelectorComponent, TagComponent],
   entryComponents: [LocationSelectorComponent]
 })
 export class SharedModule {

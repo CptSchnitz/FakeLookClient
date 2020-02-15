@@ -1,17 +1,17 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
 import NewComment from '../../model/newComment.model';
 import { Observable } from 'rxjs';
 import Comment from '../../model/newComment.model';
 import { environment } from 'src/environments/environment';
 import { catchError } from 'rxjs/operators';
+import { AuthHttpService } from 'src/app/auth-http.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class CommentsService {
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: AuthHttpService) { }
   private apiUrl = environment.backendUrl + '/api/posts/';
 
   createComment(comment: NewComment, postId: number): Observable<Comment> {
