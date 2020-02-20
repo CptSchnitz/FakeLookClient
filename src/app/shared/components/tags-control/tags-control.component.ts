@@ -1,8 +1,7 @@
-import { Component, OnInit, OnDestroy, Input, forwardRef } from '@angular/core';
+import { Component, Input, forwardRef } from '@angular/core';
 import { TagsService } from '../../services/TagsService/tags-service.service';
 import { faTimes } from '@fortawesome/free-solid-svg-icons';
-import { Subject, Observable, of } from 'rxjs';
-import { NgbTypeaheadSelectItemEvent } from '@ng-bootstrap/ng-bootstrap';
+import { Observable, of } from 'rxjs';
 import {
   debounceTime,
   distinctUntilChanged,
@@ -26,17 +25,20 @@ import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
     }
   ]
 })
-export class TagsControlComponent implements OnDestroy, ControlValueAccessor {
-  private unsubscribe$ = new Subject<void>();
+export class TagsControlComponent implements ControlValueAccessor {
   faTimes = faTimes;
   searching = false;
   searchFailed = false;
+  
   @Input()
   disabled = false;
 
-  constructor(private tagService: TagsService) {}
-
   tags: string[] = [];
+  onChange = (tags: string[]) => { };
+  onTouched = () => { };
+
+  constructor(private tagService: TagsService) { }
+
 
   addTag(tag: string) {
     if (!this.disabled) {
@@ -64,7 +66,6 @@ export class TagsControlComponent implements OnDestroy, ControlValueAccessor {
         this.tagService.getTags(term).pipe(
           tap(() => (this.searchFailed = false)),
           catchError(() => {
-            console.log('error');
             this.searchFailed = true;
             return of([]);
           })
@@ -78,10 +79,6 @@ export class TagsControlComponent implements OnDestroy, ControlValueAccessor {
       ),
       tap(() => (this.searching = false))
     )
-    
-  ngOnDestroy(): void {
-    this.unsubscribe$.next();
-  }
 
   writeValue(obj: string[]): void {
     this.tags = obj;
@@ -100,6 +97,5 @@ export class TagsControlComponent implements OnDestroy, ControlValueAccessor {
     this.disabled = isDisabled;
   }
 
-  onChange = (tags: string[]) => {};
-  onTouched = () => {};
+  
 }

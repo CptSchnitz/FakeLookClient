@@ -15,7 +15,7 @@ import PostComment from '../../model/postComment.model';
 export class PostDetailsComponent implements OnInit {
   constructor(
     private route: ActivatedRoute,
-    private postService: PostsService,
+    public postService: PostsService,
     private modalService: NgbModal
   ) {}
 
@@ -28,7 +28,6 @@ export class PostDetailsComponent implements OnInit {
         )
       )
       .subscribe(post => {
-        console.log(post);
         return (this.post = post);
       });
   }
@@ -37,8 +36,6 @@ export class PostDetailsComponent implements OnInit {
     const commentForm = this.modalService.open(CommentFormComponent);
     commentForm.componentInstance.postId = this.post.postId;
     commentForm.result.then((comment: PostComment) => {
-      console.log(comment);
-
       this.post.comments = [...this.post.comments, comment];
     });
   }

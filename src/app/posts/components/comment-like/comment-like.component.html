@@ -1,0 +1,7 @@
+<span>Likes: {{comment.likes}}</span>
+<button (click)="handleClick()" class="btn">
+  <fa-icon
+    [icon]="comment.likedByUser ? faHeartSolid : faHeartRegular"
+    class="text-danger"
+  ></fa-icon>
+</button>

@@ -6,26 +6,34 @@ import { environment } from 'src/environments/environment';
 import { catchError } from 'rxjs/operators';
 import { AuthHttpService } from 'src/app/auth-http.service';
 
+const END_POINT = '/api/posts/';
+const API_URL = environment.backendUrl + END_POINT;
+
 @Injectable({
   providedIn: 'root'
 })
 export class CommentsService {
 
   constructor(private http: AuthHttpService) { }
-  private apiUrl = environment.backendUrl + '/api/posts/';
 
   createComment(comment: NewComment, postId: number): Observable<Comment> {
-    console.log(comment);
 
-    return this.http.post<Comment>(this.apiUrl + postId + '/comments', comment)
+    return this.http.post<Comment>(API_URL + postId + '/comments', comment)
       .pipe(
         catchError(err => {
-          console.log(err);
           throw err;
         }));
   }
 
   getCommentsByPostId(postId: number): Observable<Comment[]> {
-    return this.http.get<Comment[]>(this.apiUrl + postId + '/comments');
+    return this.http.get<Comment[]>(API_URL + postId + '/comments');
+  }
+
+  addCommentLike(postId: number, commentId: number): Observable<any>{
+    return this.http.post(`${API_URL}/${postId}/comments/${commentId}/like`, {});
+  }
+
+  deleteCommentLike(postId: number, commentId: number): Observable<any> {
+    return this.http.delete(`${API_URL}/${postId}/comments/${commentId}/like`);
   }
 }

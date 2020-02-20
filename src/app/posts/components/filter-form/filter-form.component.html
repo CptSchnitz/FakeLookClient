@@ -8,9 +8,20 @@
       max="20017.462"
       id="distance"
       placeholder="Enter distance"
-      formControlName='distance'
+      formControlName="distance"
     />
     <small id="distanceHelp" class="form-text text-muted">Use km</small>
+  </div>
+  <div
+    *ngIf="distance.invalid && (distance.dirty || distance.touched)"
+    class="text-danger"
+  >
+    <div *ngIf="!!distance.errors.min">
+      distance is too small.
+    </div>
+    <div *ngIf="!!distance.errors.max">
+      distance is too big.
+    </div>
   </div>
   <div class="form-group">
     <label for="minDate">Minimum Date</label>
@@ -19,7 +30,7 @@
         class="form-control"
         placeholder="yyyy-mm-dd"
         id="minDate"
-        formControlName='minDate'
+        formControlName="minDate"
         ngbDatepicker
         #minDate="ngbDatepicker"
       />
@@ -33,7 +44,9 @@
         </button>
       </div>
     </div>
-    <small id="distanceHelp" class="form-text text-muted">All posts after the specified date. (specified date is included)</small>
+    <small id="distanceHelp" class="form-text text-muted"
+      >All posts after the specified date. (specified date is included)</small
+    >
   </div>
   <div class="form-group">
     <label for="maxDate">Maximum Date</label>
@@ -56,10 +69,32 @@
         </button>
       </div>
     </div>
-    <small id="distanceHelp" class="form-text text-muted">All posts up to the specified date.</small>
+    <small id="distanceHelp" class="form-text text-muted"
+      >All posts up to the specified date.</small
+    >
   </div>
-  <app-tags-control formControlName='tags'></app-tags-control>
-  <app-user-tags-control formControlName='userTags' [label]="'User Tags'"></app-user-tags-control>
-  <app-user-tags-control formControlName='publishers' [label]="'Publishers'"></app-user-tags-control>
-  <button type="submit"  class="btn btn-primary float-right">Search</button>
+  <div
+  *ngIf="filterForm.invalid && (filterForm.dirty || filterForm.touched)"
+  class="text-danger"
+>
+  <div *ngIf="!!filterForm.errors.invalidDates">
+    min date must be before max.
+  </div>
+</div>
+  <app-tags-control formControlName="tags"></app-tags-control>
+  <app-user-tags-control
+    formControlName="userTags"
+    [label]="'User Tags'"
+  ></app-user-tags-control>
+  <app-user-tags-control
+    formControlName="publishers"
+    [label]="'Publishers'"
+  ></app-user-tags-control>
+  <button
+    type="submit"
+    [disabled]="filterForm.invalid"
+    class="btn btn-primary float-right"
+  >
+    Search
+  </button>
 </form>

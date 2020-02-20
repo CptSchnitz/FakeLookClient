@@ -1,12 +1,14 @@
 import { GeoPoint } from 'src/app/shared/model/geoPoint.model';
+import { SimpleUser } from 'src/app/social/model/simpleUser.model';
 
 
 export interface PostSimple {
   postId: number;
-  image: string;
+  imageUuid: string;
   location: GeoPoint;
   publishDate: Date;
   text: string;
-  user: { Id: number; name: string };
+  creator: SimpleUser;
   likes: number;
+  likedByUser: boolean;
 }

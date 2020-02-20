@@ -4,11 +4,11 @@ import PostComment from './postComment.model';
 
 export interface Post {
   postId: number;
-  image: string;
+  imageUuid: string;
   location: GeoPoint;
   publishDate: Date;
   text: string;
-  owner: SimpleUser;
+  creator: SimpleUser;
   likes: number;
   likedByUser: boolean;
   userTags: SimpleUser[];

@@ -17,7 +17,6 @@ export class AppComponent /** implements AfterViewInit */ {
   //   const googleApiKey = environment.googleApiKey;
   //   const script = this.document.createElement('script');
   //   script.type = 'text/javascript';
-  //   console.log(googleApiKey)
   //   script.src = `https://maps.googleapis.com/maps/api/js?key=${googleApiKey}`;
   //   this.elementRef.nativeElement.appendChild(script);
   //}

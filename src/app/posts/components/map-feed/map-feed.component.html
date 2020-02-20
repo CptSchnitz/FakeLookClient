@@ -15,6 +15,8 @@
         (boundsChanged)="handleBoundsChange($event)"
         #map
       >
+      <map-marker [position]="center" [options]="centerOptions">
+      </map-marker>
         <ng-container *ngFor="let post of postsToDisplay">
           <map-marker
             #marker

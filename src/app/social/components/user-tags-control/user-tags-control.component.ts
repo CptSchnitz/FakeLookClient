@@ -62,7 +62,6 @@ export class UserTagsControlComponent implements OnDestroy, ControlValueAccessor
     switchMap(term => this.userService.getUsers(term).pipe(
       tap(() => this.searchFailed = false),
       catchError(() => {
-        console.log("error")
         this.searchFailed = true;
         return of([]);
       }))

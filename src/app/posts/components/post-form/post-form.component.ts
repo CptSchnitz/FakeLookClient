@@ -62,19 +62,19 @@ export class PostFormComponent implements OnInit, OnDestroy {
     });
   }
 
-  addTag(tag: string) {
-    if (tag.length && !this.postTags.find((t) => t === tag)) {
-      this.postTags.push(tag);
-      const tagsArray = this.postForm.get('tags') as FormArray;
-      tagsArray.push(new FormControl(tag));
-    }
-  }
+  // addTag(tag: string) {
+  //   if (tag.length && !this.postTags.find((t) => t === tag)) {
+  //     this.postTags.push(tag);
+  //     const tagsArray = this.postForm.get('tags') as FormArray;
+  //     tagsArray.push(new FormControl(tag));
+  //   }
+  // }
 
-  removeTag(tagIndex: number) {
-    this.postTags.splice(tagIndex, 1);
-    const tagsArray = this.postForm.get('tags') as FormArray;
-    tagsArray.removeAt(tagIndex);
-  }
+  // removeTag(tagIndex: number) {
+  //   this.postTags.splice(tagIndex, 1);
+  //   const tagsArray = this.postForm.get('tags') as FormArray;
+  //   tagsArray.removeAt(tagIndex);
+  // }
 
   onSubmit() {
     const userArr = this.postForm.get('userTags').value as SimpleUser[];

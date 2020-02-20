@@ -15,12 +15,13 @@ import { GoogleMapsModule } from '@angular/google-maps';
 import { SocialModule } from '../social/social.module';
 import { PostMapInfoWindowComponent } from './components/post-map-info-window/post-map-info-window.component';
 import { SharedModule } from '../shared/shared.module';
-import { NgbDatepickerModule, NgbModalModule } from '@ng-bootstrap/ng-bootstrap';
+import { NgbDatepickerModule, NgbModalModule, NgbPopoverModule } from '@ng-bootstrap/ng-bootstrap';
 import { CommentsService } from './services/comments-service/comments.service';
 import { CommentsComponent } from './components/comments/comments.component';
 import { CommentItemComponent } from './components/comment-item/comment-item.component';
 import { CommentFormComponent } from './components/comment-form/comment-form.component';
-import { LikeComponent } from './components/like/like.component';
+import { LikeComponent } from './components/post-like/post-like.component';
+import { CommentLikeComponent } from './components/comment-like/comment-like.component';
 
 @NgModule({
   declarations: [
@@ -34,7 +35,8 @@ import { LikeComponent } from './components/like/like.component';
     CommentsComponent,
     CommentItemComponent,
     CommentFormComponent,
-    LikeComponent
+    LikeComponent,
+    CommentLikeComponent
   ],
   imports: [
     CommonModule,
@@ -45,7 +47,8 @@ import { LikeComponent } from './components/like/like.component';
     SocialModule,
     SharedModule,
     NgbDatepickerModule,
-    NgbModalModule
+    NgbModalModule,
+    NgbPopoverModule
   ],
   providers: [PostsService, CommentsService],
   entryComponents: [CommentFormComponent]

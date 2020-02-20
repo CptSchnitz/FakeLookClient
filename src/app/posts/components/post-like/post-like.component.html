@@ -1,6 +1,7 @@
+<span>Likes: {{post.likes}}</span>
 <button (click)="handleClick()" class="btn">
   <fa-icon
-    [icon]="isLiked ? faHeartSolid : faHeartRegular"
+    [icon]="post.likedByUser ? faHeartSolid : faHeartRegular"
     class="text-danger"
   ></fa-icon>
 </button>

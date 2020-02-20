@@ -5,11 +5,30 @@ import {
   EventEmitter,
   AfterViewInit
 } from '@angular/core';
-import { FormGroup, FormControl } from '@angular/forms';
+import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { faCalendarAlt } from '@fortawesome/free-solid-svg-icons';
 import { PostFilter } from '../../model/postFilter.model';
 import { GeolocationService } from 'src/app/shared/services/geolocationService/geolocation.service';
 import { NgbDateStruct } from '@ng-bootstrap/ng-bootstrap';
+import {isBefore} from 'date-fns';
+
+// The maximum distance of the buffer cannot exceed 
+// 0.999 * π * minorAxis * minorAxis / majorAxis (~0.999 * 1/2 Earth's circumference) 
+// of the full globe.
+const MAX_DISTANCE = 20017.462;
+
+const DateValidator = (form: FormGroup)=> {
+  const minDateValue = form.get('minDate').value;
+  const maxDateValue = form.get('maxDate').value;
+  if (minDateValue && maxDateValue) {
+    const minDate = new Date(minDateValue.year, minDateValue.month - 1, minDateValue.day);
+    const maxDate = new Date(maxDateValue.year, maxDateValue.month - 1, maxDateValue.day);
+    if (!isBefore(minDate, maxDate)) {
+      return {invalidDates: true}
+    }
+  }
+  return null;
+}
 
 @Component({
   selector: 'app-filter-form',
@@ -23,12 +42,16 @@ export class FilterFormComponent implements AfterViewInit {
     minDate: new FormControl(),
     maxDate: new FormControl(),
     publishers: new FormControl([]),
-    distance: new FormControl(''),
+    distance: new FormControl('', [Validators.min(0), Validators.max(MAX_DISTANCE)]),
     tags: new FormControl([]),
     userTags: new FormControl([]),
     lat: new FormControl(41.9028),
     lng: new FormControl(12.4964)
-  });
+  }, [DateValidator]);
+
+  get distance(){
+    return this.filterForm.get('distance');
+  }
 
   @Output()
   searchSubmitted = new EventEmitter<PostFilter>();

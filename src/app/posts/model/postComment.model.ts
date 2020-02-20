@@ -3,6 +3,7 @@ import Tag from 'src/app/shared/model/tag.model';
 
 export default interface PostComment {
   postId: number;
+  commentId: number;
   publishDate: Date;
   text: string;
   creator: SimpleUser;

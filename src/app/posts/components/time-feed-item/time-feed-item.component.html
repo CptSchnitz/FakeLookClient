@@ -2,7 +2,7 @@
   <div class="col-2">
     <img
       class="thumb"
-      src="http://localhost:4000/images/thumb/{{ post.image }}"
+      src="http://localhost:4000/images/thumb/{{ post.imageUuid }}"
     />
   </div>
   <div class="col-6">
@@ -12,11 +12,11 @@
     <a class="btn btn-secondary" [routerLink]="['/posts/details',post.postId]">link</a>
   </div>
   <div class="col-1">
-    <strong>{{post.likes}}</strong>
+    <app-post-like [post]='post'></app-post-like>
   </div>
   <div class="col-2 text-right">
     <div>
-      <small class="text-muted">{{post.user.name }}</small>
+      <small class="text-muted">{{post.creator.firstName + " " + post.creator.lastName }}</small>
     </div>
     <div>
       <small class="text-muted">{{ post.publishDate | date: 'd/M/yy, h:mm a' }}</small>

@@ -7,19 +7,22 @@ import { PostFilter } from '../../model/postFilter.model';
 import { Post } from '../../model/post.model';
 import { AuthHttpService } from 'src/app/auth-http.service';
 
+const END_POINT = '/api/posts';
+const API_URL = environment.backendUrl + END_POINT;
+
+
 @Injectable({
   providedIn: 'root'
 })
 export class PostsService {
-  private apiUrl = environment.backendUrl + '/api/posts';
   constructor(private http: AuthHttpService) { }
 
   getPostById(id: number): Observable<Post> {
-    return this.http.get<Post>(this.apiUrl + '/' + id);
+    return this.http.get<Post>(API_URL + '/' + id);
   }
 
   getPosts(filters?: PostFilter): Observable<PostSimple[]> {
-    let url = this.apiUrl;
+    let url = API_URL;
     if (filters) {
       url += this.getQueryString(filters);
     }
@@ -64,6 +67,14 @@ export class PostsService {
     const formData = new FormData();
     formData.append('image', image);
     formData.append('data', JSON.stringify(data));
-    return this.http.post<{ postId: number }>(this.apiUrl, formData);
+    return this.http.post<{ postId: number }>(API_URL, formData);
+  }
+
+  addPostLike(postId: number): Observable<any>{
+    return this.http.post(`${API_URL}/${postId}/like`, {});
+  }
+
+  deletePostLike(postId: number): Observable<any> {
+    return this.http.delete(`${API_URL}/${postId}/like`);
   }
 }

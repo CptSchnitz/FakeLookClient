@@ -23,7 +23,6 @@ export class LoginLogoutComponent implements OnInit {
       .getLoggedInUser()
       .pipe(takeUntil(this.unsubscribe$))
       .subscribe(user => {
-        console.log(user);
         return (this.loggedUser = user);
       });
   }

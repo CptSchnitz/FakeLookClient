@@ -25,7 +25,7 @@ export class MapFeedComponent implements AfterViewInit, OnDestroy {
   constructor(
     private postsService: PostsService,
     private geoService: GeolocationService
-  ) {}
+  ) { }
 
   private posts: PostSimple[] = [];
   private unsubscribe$ = new Subject<void>();
@@ -34,6 +34,11 @@ export class MapFeedComponent implements AfterViewInit, OnDestroy {
   private maxPostsAsImages = 3;
 
   clickedPost: PostSimple = null;
+
+  centerOptions: google.maps.MarkerOptions = {
+    icon: { url: 'https://maps.google.com/mapfiles/ms/icons/blue-dot.png' },
+    title: 'your position',
+  }
 
   @Input()
   Lng: number;
@@ -67,7 +72,7 @@ export class MapFeedComponent implements AfterViewInit, OnDestroy {
     const options: google.maps.MarkerOptions = { draggable: false };
     if (this.postsToDisplay.length <= this.maxPostsAsImages) {
       options.icon = {
-        url: environment.backendUrl + '/images/thumb/' + post.image,
+        url: environment.backendUrl + '/images/thumb/' + post.imageUuid,
         scaledSize: new google.maps.Size(45, 45, 'px', 'px')
       };
     } else {
@@ -105,10 +110,14 @@ export class MapFeedComponent implements AfterViewInit, OnDestroy {
   handleBoundsChange() {
     this.postsToDisplay = [];
     const mapBounds = this.gmap.getBounds();
-    for (const post of this.posts) {
-      if (mapBounds.contains(post.location)) {
-        this.postsToDisplay.push(post);
+    let i = 0;
+    let currentInBounds = 0;
+    while (i < this.posts.length && currentInBounds < this.maxPostsOnMap) {
+      if (mapBounds.contains(this.posts[i].location)) {
+        this.postsToDisplay.push(this.posts[i]);
+        currentInBounds++;
       }
+      i++;
     }
   }
 

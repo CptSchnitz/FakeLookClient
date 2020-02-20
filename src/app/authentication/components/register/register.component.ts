@@ -84,13 +84,9 @@ export class RegisterComponent {
   validateAtLeastTwelve(control: AbstractControl): ValidationErrors | null {
     const controlDate = new Date(control.value);
     const twelveYearsAgo = subYears(new Date(), 12);
-    console.log(controlDate, twelveYearsAgo);
-    
     if (isBefore(controlDate, twelveYearsAgo)) {
       return null;
     } else {
-      console.log('lol');
-      
       return { NotOldEnough: true };
     }
   }
