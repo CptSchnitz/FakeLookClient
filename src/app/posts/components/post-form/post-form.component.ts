@@ -24,7 +24,7 @@ export class PostFormComponent implements OnInit, OnDestroy {
   faTimes = faTimes;
 
   constructor(private geoService: GeolocationService, private postsService: PostsService,
-    private router: Router, private modalService: NgbModal, private toastr: ToastrService) { }
+              private router: Router, private modalService: NgbModal, private toastr: ToastrService) { }
 
   postForm = new FormGroup({
     text: new FormControl('', Validators.maxLength(500)),
@@ -61,20 +61,6 @@ export class PostFormComponent implements OnInit, OnDestroy {
       locationGroup.get('lng').patchValue(location.lng);
     });
   }
-
-  // addTag(tag: string) {
-  //   if (tag.length && !this.postTags.find((t) => t === tag)) {
-  //     this.postTags.push(tag);
-  //     const tagsArray = this.postForm.get('tags') as FormArray;
-  //     tagsArray.push(new FormControl(tag));
-  //   }
-  // }
-
-  // removeTag(tagIndex: number) {
-  //   this.postTags.splice(tagIndex, 1);
-  //   const tagsArray = this.postForm.get('tags') as FormArray;
-  //   tagsArray.removeAt(tagIndex);
-  // }
 
   onSubmit() {
     const userArr = this.postForm.get('userTags').value as SimpleUser[];

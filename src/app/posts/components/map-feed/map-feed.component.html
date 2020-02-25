@@ -12,7 +12,7 @@
         [center]="center"
         [zoom]="zoom"
         [options]="mapOptions"
-        (boundsChanged)="handleBoundsChange($event)"
+        (boundsChanged)="handleBoundsChange()"
         #map
       >
       <map-marker [position]="center" [options]="centerOptions">

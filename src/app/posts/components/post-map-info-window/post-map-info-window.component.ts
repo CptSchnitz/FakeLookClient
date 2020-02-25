@@ -1,5 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { PostSimple } from '../../model/postSimple.model';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-post-map-info-window',
@@ -8,7 +9,10 @@ import { PostSimple } from '../../model/postSimple.model';
 })
 export class PostMapInfoWindowComponent implements OnInit {
 
-  @Input() post: PostSimple
+  @Input() post: PostSimple;
+
+  imageUrlBase = environment.backendUrl + '/images/';
+
   constructor() { }
 
   ngOnInit() {

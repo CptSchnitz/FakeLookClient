@@ -6,6 +6,7 @@ import { Post } from '../../model/post.model';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { CommentFormComponent } from '../comment-form/comment-form.component';
 import PostComment from '../../model/postComment.model';
+import { environment } from '../../../../environments/environment';
 
 @Component({
   selector: 'app-post-details',
@@ -18,6 +19,8 @@ export class PostDetailsComponent implements OnInit {
     public postService: PostsService,
     private modalService: NgbModal
   ) {}
+
+  imageUrlBase = environment.backendUrl + '/images/';
 
   post: Post;
   ngOnInit() {
