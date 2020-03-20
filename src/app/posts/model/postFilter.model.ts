@@ -9,7 +9,7 @@ export interface PostFilter {
   userTags?: number[];
   distance?: number;
   lat?: number;
-  lng?: number;
+  lon?: number;
   minDate?: Date;
   maxDate?: Date;
   orderBy?: OrderPostBy;

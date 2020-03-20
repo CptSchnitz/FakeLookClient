@@ -46,7 +46,7 @@ export class FilterFormComponent implements AfterViewInit {
     tags: new FormControl([]),
     userTags: new FormControl([]),
     lat: new FormControl(41.9028),
-    lng: new FormControl(12.4964)
+    lon: new FormControl(12.4964)
   }, [DateValidator]);
 
   get distance(){

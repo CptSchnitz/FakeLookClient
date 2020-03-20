@@ -20,7 +20,7 @@
         <ng-container *ngFor="let post of postsToDisplay">
           <map-marker
             #marker
-            [position]="post.location"
+            [position]="getLatLng(post.location)"
             [options]="getMarkerOptions(post)"
             (mapClick)="openPostWindow(marker, post)"
           ></map-marker>

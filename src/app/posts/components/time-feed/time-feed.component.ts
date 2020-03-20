@@ -4,6 +4,7 @@ import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { PostSimple } from 'src/app/posts/model/postSimple.model';
 import { OrderPostBy, PostFilter } from '../../model/postFilter.model';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-time-feed',
@@ -14,7 +15,7 @@ export class TimeFeedComponent implements OnInit, OnDestroy {
   private unsubscribe$ = new Subject<void>();
   posts: PostSimple[];
 
-  constructor(private postsService: PostsService) { }
+  constructor(private postsService: PostsService, private toastrService:ToastrService) { }
 
   ngOnInit() {
     this.postsService
@@ -32,6 +33,11 @@ export class TimeFeedComponent implements OnInit, OnDestroy {
     this.postsService
       .getPosts(filter)
       .pipe(takeUntil(this.unsubscribe$))
-      .subscribe((posts) => (this.posts = posts));
+      .subscribe((posts) => {
+        if (posts.length === 0) {
+          this.toastrService.info('your query returned zero posts');
+        }
+        return (this.posts = posts);
+      });
   }
 }

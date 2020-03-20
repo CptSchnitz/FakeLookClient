@@ -9,7 +9,7 @@
         <app-tag
           *ngFor="let tag of comment.tags"
           [disabled]="true"
-          [content]="tag.name"
+          [content]="tag"
         ></app-tag>
       </div>
     </div>
@@ -25,6 +25,6 @@
     </div>
   </div>
   <div class="col-2"><app-comment-like [comment]='comment'></app-comment-like></div>
-  <div class="col-1">{{ comment.creator.firstName }}</div>
+  <div class="col-1">{{ comment.creator.firstName + " " + comment.creator.lastName }}</div>
   <div class="col-2">{{ comment.publishDate | date: 'd/M/yy, h:mm a' }}</div>
 </div>

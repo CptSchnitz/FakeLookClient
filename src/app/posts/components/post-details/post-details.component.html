@@ -9,6 +9,7 @@
     <figcaption class="figure-caption text-right">
       <strong>#{{ post.postId }}</strong>
       {{ post.publishDate | date: 'd/M/yy, h:mm a' }}
+      <p>{{post.creator.firstName + " " + post.creator.lastName}}</p>
     </figcaption>
   </figure>
   <p>{{ post.text }}</p>
@@ -19,7 +20,7 @@
       <app-tag
         *ngFor="let tag of post.tags"
         [disabled]="true"
-        [content]="tag.name"
+        [content]="tag"
       ></app-tag>
     </div>
   </div>
@@ -37,4 +38,7 @@
     Add Comment
   </button>
   <app-comments [comments]="post.comments"></app-comments>
+</div>
+<div *ngIf="!post">
+  <h2>Couldn't find the requested post.</h2>
 </div>

@@ -31,7 +31,7 @@ export class PostFormComponent implements OnInit, OnDestroy {
     image: new FormControl('', [Validators.required, ValidateImageType]),
     location: new FormGroup({
       lat: new FormControl(null, [Validators.min(-90), Validators.max(90), Validators.required]),
-      lng: new FormControl(null, [Validators.min(-180), Validators.max(180), Validators.required]),
+      lon: new FormControl(null, [Validators.min(-180), Validators.max(180), Validators.required]),
     }),
     tags: new FormControl([]),
     userTags: new FormControl([]),
@@ -45,8 +45,8 @@ export class PostFormComponent implements OnInit, OnDestroy {
     return this.postForm.get('image');
   }
 
-  get lng() {
-    return this.postForm.get('location.lng');
+  get lon() {
+    return this.postForm.get('location.lon');
   }
 
   get lat() {
@@ -58,7 +58,7 @@ export class PostFormComponent implements OnInit, OnDestroy {
     this.geoService.getLocation().then((location) => {
       const locationGroup = this.postForm.get('location');
       locationGroup.get('lat').patchValue(location.lat);
-      locationGroup.get('lng').patchValue(location.lng);
+      locationGroup.get('lon').patchValue(location.lon);
     });
   }
 

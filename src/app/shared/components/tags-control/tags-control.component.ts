@@ -60,7 +60,7 @@ export class TagsControlComponent implements ControlValueAccessor {
     text$.pipe(
       debounceTime(300),
       distinctUntilChanged(),
-      filter(term => term.length >= 2),
+      filter(term => term.length >= 1),
       tap(() => (this.searching = true)),
       switchMap(term =>
         this.tagService.getTags(term).pipe(
@@ -75,7 +75,6 @@ export class TagsControlComponent implements ControlValueAccessor {
         tags
           .filter(tag => !this.tags.includes(tag))
           .slice(0, 10)
-          .map(tag => tag.name)
       ),
       tap(() => (this.searching = false))
     )

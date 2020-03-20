@@ -10,13 +10,14 @@ import { SharedModule } from './shared/shared.module';
 import { ToastrModule } from 'ngx-toastr';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AuthenticationModule } from './authentication/authentication.module';
+import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 
 
 @NgModule({
-  declarations: [AppComponent],
+  declarations: [AppComponent, PageNotFoundComponent],
   imports: [BrowserModule, NgbModule, BrowserAnimationsModule,
     ToastrModule.forRoot({ positionClass: 'toast-top-center', progressBar: true }),
-    AppRoutingModule, HttpClientModule, FontAwesomeModule, SharedModule.forRoot(), AuthenticationModule],
+    HttpClientModule, FontAwesomeModule, SharedModule.forRoot(), AuthenticationModule, AppRoutingModule,],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

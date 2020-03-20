@@ -10,8 +10,8 @@ COPY . .
 
 RUN npm run build -- --output-path=./dist --configuration=production
 
-FROM nginx:latest
+FROM nginx:1.17.9
 
-COPY --from=build-stage app/dist/ /usr/share/nginx/html
+COPY --from=build-stage /app/dist/ /usr/share/nginx/html
 
-COPY --from=build-stage app/nginx.conf /etc/nginx/conf.d/default.conf
+COPY  nginx.conf /etc/nginx/conf.d/default.conf

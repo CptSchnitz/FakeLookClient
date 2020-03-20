@@ -25,15 +25,15 @@ export class CommentsService {
         }));
   }
 
-  getCommentsByPostId(postId: number): Observable<Comment[]> {
+  getCommentsByPostId(postId: string): Observable<Comment[]> {
     return this.http.get<Comment[]>(API_URL + postId + '/comments');
   }
 
-  addCommentLike(postId: number, commentId: number): Observable<any>{
+  addCommentLike(postId: string, commentId: string): Observable<any>{
     return this.http.post(`${API_URL}/${postId}/comments/${commentId}/like`, {});
   }
 
-  deleteCommentLike(postId: number, commentId: number): Observable<any> {
+  deleteCommentLike(postId: string, commentId: string): Observable<any> {
     return this.http.delete(`${API_URL}/${postId}/comments/${commentId}/like`);
   }
 }

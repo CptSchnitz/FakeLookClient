@@ -32,14 +32,12 @@ export class LocationSelectorComponent implements AfterViewInit {
   @Input()
   set point(point: GeoPoint) {
     if (point) {
-      this.location = point;
-      this.mapOptions.center = point;
+      this.location = { lat: point.lat, lng: point.lon };
+      this.mapOptions.center = new google.maps.LatLng(point.lat, point.lon);
     }
   }
 
-
-  location: GeoPoint;
-
+  location: google.maps.LatLngLiteral;
 
   constructor(public activeModal: NgbActiveModal) { }
 
@@ -70,6 +68,6 @@ export class LocationSelectorComponent implements AfterViewInit {
   }
 
   selectClicked() {
-    this.activeModal.close(this.location);
+    this.activeModal.close({ lat: this.location.lat, lon: this.location.lng });
   }
 }

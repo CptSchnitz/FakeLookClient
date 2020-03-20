@@ -17,7 +17,7 @@ const API_URL = environment.backendUrl + END_POINT;
 export class PostsService {
   constructor(private http: AuthHttpService) { }
 
-  getPostById(id: number): Observable<Post> {
+  getPostById(id: string): Observable<Post> {
     return this.http.get<Post>(API_URL + '/' + id);
   }
 
@@ -45,7 +45,7 @@ export class PostsService {
     }
 
     if (filters.distance) {
-      queryString += `distance=${filters.distance}&lng=${filters.lng}&lat=${filters.lat}&`;
+      queryString += `distance=${filters.distance}&lon=${filters.lon}&lat=${filters.lat}&`;
     }
 
     if (filters.minDate) {
@@ -70,11 +70,11 @@ export class PostsService {
     return this.http.post<{ postId: number }>(API_URL, formData);
   }
 
-  addPostLike(postId: number): Observable<any>{
+  addPostLike(postId: string): Observable<any>{
     return this.http.post(`${API_URL}/${postId}/like`, {});
   }
 
-  deletePostLike(postId: number): Observable<any> {
+  deletePostLike(postId: string): Observable<any> {
     return this.http.delete(`${API_URL}/${postId}/like`);
   }
 }

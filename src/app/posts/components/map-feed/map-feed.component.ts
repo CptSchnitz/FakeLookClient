@@ -15,6 +15,8 @@ import { takeUntil } from 'rxjs/operators';
 import { GoogleMap, MapInfoWindow } from '@angular/google-maps';
 import { PostFilter, OrderPostBy } from '../../model/postFilter.model';
 import { environment } from '../../../../environments/environment';
+import { ToastrService } from 'ngx-toastr';
+import { GeoPoint } from 'src/app/shared/model/geoPoint.model';
 
 @Component({
   selector: 'app-map-feed',
@@ -24,13 +26,14 @@ import { environment } from '../../../../environments/environment';
 export class MapFeedComponent implements AfterViewInit, OnDestroy {
   constructor(
     private postsService: PostsService,
-    private geoService: GeolocationService
+    private geoService: GeolocationService,
+    private toastrService: ToastrService,
   ) { }
 
   private posts: PostSimple[] = [];
   private unsubscribe$ = new Subject<void>();
   postsToDisplay: PostSimple[] = [];
-  private maxPostsOnMap = 100;
+  private maxPostsOnMap = 50;
   private maxPostsAsImages = 3;
 
   clickedPost: PostSimple = null;
@@ -38,7 +41,7 @@ export class MapFeedComponent implements AfterViewInit, OnDestroy {
   centerOptions: google.maps.MarkerOptions = {
     icon: { url: 'https://maps.google.com/mapfiles/ms/icons/blue-dot.png' },
     title: 'your position',
-  }
+  };
 
   @Input()
   Lng: number;
@@ -83,7 +86,7 @@ export class MapFeedComponent implements AfterViewInit, OnDestroy {
 
   ngAfterViewInit() {
     this.geoService.getLocation().then(userLocation => {
-      this.center = userLocation;
+      this.center = { lat: userLocation.lat, lng: userLocation.lon };
     });
     this.postsService
       .getPosts({ orderBy: OrderPostBy.likes })
@@ -101,6 +104,9 @@ export class MapFeedComponent implements AfterViewInit, OnDestroy {
       .pipe(takeUntil(this.unsubscribe$))
       .subscribe({
         next: posts => {
+          if (posts.length === 0) {
+            this.toastrService.info('your query returned zero posts');
+          }
           this.posts = posts;
           this.handleBoundsChange();
         }
@@ -113,7 +119,8 @@ export class MapFeedComponent implements AfterViewInit, OnDestroy {
     let i = 0;
     let currentInBounds = 0;
     while (i < this.posts.length && currentInBounds < this.maxPostsOnMap) {
-      if (mapBounds.contains(this.posts[i].location)) {
+      const location = this.posts[i].location;
+      if (mapBounds.contains(new google.maps.LatLng(location.lat, location.lon))) {
         this.postsToDisplay.push(this.posts[i]);
         currentInBounds++;
       }
@@ -128,5 +135,9 @@ export class MapFeedComponent implements AfterViewInit, OnDestroy {
 
   ngOnDestroy(): void {
     this.unsubscribe$.next();
+  }
+
+  getLatLng(point: GeoPoint): google.maps.LatLng {
+    return new google.maps.LatLng(point.lat, point.lon);
   }
 }

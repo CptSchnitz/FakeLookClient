@@ -17,7 +17,7 @@
         class="btn btn-outline-secondary"
         type="button"
         (click)="addTag(tagField.value); text.value = ''"
-        [disabled]="text.value < 2 || tags.includes(text.value)"
+        [disabled]="text.value < 1 || tags.includes(text.value)"
       >
         Add
       </button>

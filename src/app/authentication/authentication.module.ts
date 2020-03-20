@@ -13,9 +13,9 @@ import { LoginLogoutComponent } from './components/login-logout/login-logout.com
   declarations: [LoginComponent, RegisterComponent, LoginLogoutComponent],
   imports: [
     CommonModule,
-    AuthenticationRoutingModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    AuthenticationRoutingModule,
   ],
   exports: [LoginLogoutComponent]
 })

@@ -3,7 +3,7 @@ import { SimpleUser } from 'src/app/social/model/simpleUser.model';
 
 
 export interface PostSimple {
-  postId: number;
+  postId: string;
   imageUuid: string;
   location: GeoPoint;
   publishDate: Date;

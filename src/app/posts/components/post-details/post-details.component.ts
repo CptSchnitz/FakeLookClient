@@ -27,7 +27,7 @@ export class PostDetailsComponent implements OnInit {
     this.route.paramMap
       .pipe(
         switchMap(params =>
-          this.postService.getPostById(Number(params.get('id')))
+          this.postService.getPostById(params.get('id'))
         )
       )
       .subscribe(post => {

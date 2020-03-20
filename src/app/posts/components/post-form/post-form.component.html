@@ -65,27 +65,27 @@
           </div>
         </div>
         <div class="form-group col-5">
-          <label for="lng">Longitude</label>
+          <label for="lon">Longitude</label>
           <input
             type="number"
             class="form-control"
-            id="lng"
+            id="lon"
             max="90"
             min="-90"
-            formControlName="lng"
+            formControlName="lon"
           />
         </div>
         <div
-          *ngIf="lng.invalid && (lng.dirty || lng.touched)"
+          *ngIf="lon.invalid && (lon.dirty || lon.touched)"
           class="text-danger"
         >
-          <div *ngIf="!!lng.errors.required">
+          <div *ngIf="!!lon.errors.required">
             Longitude is required.
           </div>
-          <div *ngIf="!!lng.errors.min">
+          <div *ngIf="!!lon.errors.min">
             Longitude must be higher than -90.
           </div>
-          <div *ngIf="!!lng.errors.max">
+          <div *ngIf="!!lon.errors.max">
             Longitude must be lower than 90.
           </div>
         </div>

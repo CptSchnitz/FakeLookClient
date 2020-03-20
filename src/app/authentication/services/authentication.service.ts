@@ -38,7 +38,7 @@ export class AuthenticationService {
   private apiUrl: string = environment.backendUrl + '/api/auth';
 
   isEmailTaken(email: string): Observable<boolean>{
-    return this.http.post<boolean>(this.apiUrl + '/isTaken', {email});
+    return this.http.get<boolean>(this.apiUrl + `/isTaken?email=${email}`,);
   };
 
   login(loginInfo: LoginInfo): Observable<any> {
