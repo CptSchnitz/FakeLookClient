@@ -17,10 +17,7 @@ export class AuthHttpService {
     private http: HttpClient,
     private authService: AuthenticationService,
     private router: Router
-  ) {
-    console.log(router);
-
-  }
+  ) { }
 
   get<T>(url: string): Observable<T> {
     return this.http.get<T>(url, { headers: this.getHeaders() }).pipe(catchError((err) => this.handleUnauthorized(err)));

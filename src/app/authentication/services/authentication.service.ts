@@ -79,10 +79,10 @@ export class AuthenticationService {
 
   private setSession(result: LoginResult) {
     const { idToken, expiration, ...user } = result;
-    this.loggedUser$.next(user);
     localStorage.setItem(storageKeys.idToken, idToken);
     localStorage.setItem(storageKeys.expire, JSON.stringify(expiration));
     localStorage.setItem(storageKeys.user, JSON.stringify(user));
+    this.loggedUser$.next(user);
   }
 
   getExpiration(): Date {

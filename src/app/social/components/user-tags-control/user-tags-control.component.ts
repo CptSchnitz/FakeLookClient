@@ -74,6 +74,7 @@ export class UserTagsControlComponent implements OnDestroy, ControlValueAccessor
   )
   ngOnDestroy(): void {
     this.unsubscribe$.next();
+    this.unsubscribe$.complete();
   }
   writeValue(obj: SimpleUser[]): void {
     this.userTags = obj;

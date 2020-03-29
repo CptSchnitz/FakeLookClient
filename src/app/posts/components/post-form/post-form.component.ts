@@ -73,6 +73,7 @@ export class PostFormComponent implements OnInit, OnDestroy {
 
   ngOnDestroy(): void {
     this.unsubscribe$.next();
+    this.unsubscribe$.complete();
   }
 
   onImageChange(event) {

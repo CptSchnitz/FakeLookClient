@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthenticationService } from '../../services/authentication.service';
 import { SimpleUser } from 'src/app/social/model/simpleUser.model';
@@ -10,7 +10,7 @@ import { takeUntil } from 'rxjs/operators';
   templateUrl: './login-logout.component.html',
   styleUrls: ['./login-logout.component.css']
 })
-export class LoginLogoutComponent implements OnInit {
+export class LoginLogoutComponent implements OnInit, OnDestroy {
   unsubscribe$ = new Subject();
   constructor(
     public router: Router,
@@ -34,5 +34,6 @@ export class LoginLogoutComponent implements OnInit {
 
   ngOnDestroy(): void {
     this.unsubscribe$.next();
+    this.unsubscribe$.complete();
   }
 }

@@ -8,6 +8,8 @@ import { TagsControlComponent } from './components/tags-control/tags-control.com
 import { LocationSelectorComponent } from './components/location-selector/location-selector.component';
 import { GoogleMapsModule } from '@angular/google-maps';
 import { TagComponent } from './components/tag/tag.component';
+import { NotificationService } from './services/notificationService/notification.service';
+import { SocketService } from './services/socketService/socket.service';
 
 
 
@@ -21,7 +23,7 @@ import { TagComponent } from './components/tag/tag.component';
     NgbModalModule
   ],
   exports: [TagsControlComponent, LocationSelectorComponent, TagComponent],
-  entryComponents: [LocationSelectorComponent]
+  entryComponents: [LocationSelectorComponent],
 })
 export class SharedModule {
   static forRoot(): ModuleWithProviders {

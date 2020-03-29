@@ -6,6 +6,7 @@ import { NewPost } from '../../model/NewPost.model';
 import { PostFilter } from '../../model/postFilter.model';
 import { Post } from '../../model/post.model';
 import { AuthHttpService } from 'src/app/auth-http.service';
+// import { PostsModule } from '../../posts.module';
 
 const END_POINT = '/api/posts';
 const API_URL = environment.backendUrl + END_POINT;

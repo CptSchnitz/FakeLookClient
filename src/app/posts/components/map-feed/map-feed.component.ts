@@ -17,19 +17,15 @@ import { PostFilter, OrderPostBy } from '../../model/postFilter.model';
 import { environment } from '../../../../environments/environment';
 import { ToastrService } from 'ngx-toastr';
 import { GeoPoint } from 'src/app/shared/model/geoPoint.model';
+import { FeedService } from '../../services/feedService/feed.service';
 
 @Component({
   selector: 'app-map-feed',
   templateUrl: './map-feed.component.html',
-  styleUrls: ['./map-feed.component.css']
+  styleUrls: ['./map-feed.component.css'],
+  providers: [FeedService]
 })
 export class MapFeedComponent implements AfterViewInit, OnDestroy {
-  constructor(
-    private postsService: PostsService,
-    private geoService: GeolocationService,
-    private toastrService: ToastrService,
-  ) { }
-
   private posts: PostSimple[] = [];
   private unsubscribe$ = new Subject<void>();
   postsToDisplay: PostSimple[] = [];
@@ -70,6 +66,12 @@ export class MapFeedComponent implements AfterViewInit, OnDestroy {
       }
     ]
   };
+  
+  constructor(
+    private feedService: FeedService,
+    private geoService: GeolocationService,
+    private toastrService: ToastrService,
+  ) { }
 
   getMarkerOptions(post: PostSimple): google.maps.MarkerOptions {
     const options: google.maps.MarkerOptions = { draggable: false };
@@ -88,8 +90,9 @@ export class MapFeedComponent implements AfterViewInit, OnDestroy {
     this.geoService.getLocation().then(userLocation => {
       this.center = { lat: userLocation.lat, lng: userLocation.lon };
     });
-    this.postsService
-      .getPosts({ orderBy: OrderPostBy.likes })
+    this.feedService.filterPosts({ orderBy: OrderPostBy.likes });
+    this.feedService
+      .getPosts()
       .pipe(takeUntil(this.unsubscribe$))
       .subscribe(posts => {
         this.posts = posts;
@@ -99,32 +102,23 @@ export class MapFeedComponent implements AfterViewInit, OnDestroy {
 
   handleSearch(filters: PostFilter) {
     filters.orderBy = OrderPostBy.likes;
-    this.postsService
-      .getPosts(filters)
-      .pipe(takeUntil(this.unsubscribe$))
-      .subscribe({
-        next: posts => {
-          if (posts.length === 0) {
-            this.toastrService.info('your query returned zero posts');
-          }
-          this.posts = posts;
-          this.handleBoundsChange();
-        }
-      });
+    this.feedService.filterPosts(filters);
   }
 
   handleBoundsChange() {
     this.postsToDisplay = [];
     const mapBounds = this.gmap.getBounds();
-    let i = 0;
-    let currentInBounds = 0;
-    while (i < this.posts.length && currentInBounds < this.maxPostsOnMap) {
-      const location = this.posts[i].location;
-      if (mapBounds.contains(new google.maps.LatLng(location.lat, location.lon))) {
-        this.postsToDisplay.push(this.posts[i]);
-        currentInBounds++;
+    if (mapBounds) {
+      let i = 0;
+      let currentInBounds = 0;
+      while (i < this.posts.length && currentInBounds < this.maxPostsOnMap) {
+        const location = this.posts[i].location;
+        if (mapBounds.contains(new google.maps.LatLng(location.lat, location.lon))) {
+          this.postsToDisplay.push(this.posts[i]);
+          currentInBounds++;
+        }
+        i++;
       }
-      i++;
     }
   }
 
@@ -135,6 +129,7 @@ export class MapFeedComponent implements AfterViewInit, OnDestroy {
 
   ngOnDestroy(): void {
     this.unsubscribe$.next();
+    this.unsubscribe$.complete();
   }
 
   getLatLng(point: GeoPoint): google.maps.LatLng {

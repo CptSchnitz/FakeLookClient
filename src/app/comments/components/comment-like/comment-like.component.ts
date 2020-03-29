@@ -29,6 +29,7 @@ export class CommentLikeComponent implements OnDestroy {
   }
   ngOnDestroy(): void {
     this.unsubscribe$.next();
+    this.unsubscribe$.complete();
   }
 
   private LikeComment() {

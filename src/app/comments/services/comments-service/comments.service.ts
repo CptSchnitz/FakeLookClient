@@ -30,10 +30,10 @@ export class CommentsService {
   }
 
   addCommentLike(postId: string, commentId: string): Observable<any>{
-    return this.http.post(`${API_URL}/${postId}/comments/${commentId}/like`, {});
+    return this.http.post(`${API_URL}${postId}/comments/${commentId}/like`, {});
   }
 
   deleteCommentLike(postId: string, commentId: string): Observable<any> {
-    return this.http.delete(`${API_URL}/${postId}/comments/${commentId}/like`);
+    return this.http.delete(`${API_URL}${postId}/comments/${commentId}/like`);
   }
 }

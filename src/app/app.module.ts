@@ -11,6 +11,8 @@ import { ToastrModule } from 'ngx-toastr';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AuthenticationModule } from './authentication/authentication.module';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
+import { NotificationService } from './shared/services/notificationService/notification.service';
+import { SocketService } from './shared/services/socketService/socket.service';
 
 
 @NgModule({
@@ -18,6 +20,6 @@ import { PageNotFoundComponent } from './page-not-found/page-not-found.component
   imports: [BrowserModule, NgbModule, BrowserAnimationsModule,
     ToastrModule.forRoot({ positionClass: 'toast-top-center', progressBar: true }),
     HttpClientModule, FontAwesomeModule, SharedModule.forRoot(), AuthenticationModule, AppRoutingModule,],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
 export class AppModule { }
